@@ -1,8 +1,9 @@
+'use client';
+
 import { Field, Form, Formik } from 'formik';
 import { useSignInFormSchema } from '../hooks/useSignInFormSchema';
 import { Input } from '../../../shared/components/Input';
 import { FieldErrorMessage } from '../../../shared/components/FieldErrorMessage';
-import { InternalLink } from '../../../shared/components/Link';
 import { Button } from '../../../shared/components/Button';
 
 export const SignInForm = (): JSX.Element => {
@@ -37,19 +38,15 @@ export const SignInForm = (): JSX.Element => {
         />
         <FieldErrorMessage name="password" />
 
-        <div className="mt-2 justify-self-end">
+        {/* <div className="mt-2 justify-self-end">
           <InternalLink href="recoverPassword">
             <a className="text-secondary hover:text-secondary-dark transition-colors text-sm">
               Forgot password?
             </a>
           </InternalLink>
-        </div>
+        </div> */}
 
-        <Button
-          type="submit"
-          className="mt-8"
-          // isLoading={isLoading}
-        >
+        <Button type="submit" className="mt-8">
           Sign in
         </Button>
       </Form>
