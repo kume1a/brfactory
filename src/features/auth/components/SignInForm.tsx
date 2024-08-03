@@ -23,10 +23,9 @@ export const SignInForm = (): JSX.Element => {
           inputWrapClassName="!bg-primaryContainer"
           placeholder="Email address"
           size="lg"
-          renderInputElement={() => <Field />}
+          renderInputElement={defaultProps => <Field {...defaultProps} />}
         />
         <FieldErrorMessage name="email" />
-
         <Input
           name="password"
           type="password"
@@ -34,7 +33,7 @@ export const SignInForm = (): JSX.Element => {
           placeholder="Password"
           inputWrapClassName="!bg-primaryContainer"
           size="lg"
-          renderInputElement={() => <Field />}
+          renderInputElement={defaultProps => <Field {...defaultProps} />}
         />
         <FieldErrorMessage name="password" />
 
@@ -46,7 +45,9 @@ export const SignInForm = (): JSX.Element => {
           </InternalLink>
         </div> */}
 
-        <Button type="submit" className="mt-8">
+        <div className="h-4" />
+
+        <Button type="submit" className="w-full">
           Sign in
         </Button>
       </Form>
