@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { SignInForm } from '../../../features/auth/components/SignInForm';
-import SvgGithub from '@public/svg/github.svg';
-import SvgGoogle from '@public/svg/google.svg';
+// import SvgGithub from '@public/svg/github.svg';
+// import SvgGoogle from '@public/svg/google.svg';
 
 export default function Example() {
   return (
@@ -24,7 +24,7 @@ export default function Example() {
           <div className="mt-10">
             <SignInForm />
 
-            <div className="mt-10">
+            {/* <div className="mt-10">
               <div className="relative">
                 <div aria-hidden="true" className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-200" />
@@ -34,7 +34,7 @@ export default function Example() {
                 </div>
               </div>
 
-              {/* <div className="mt-6 grid grid-cols-2 gap-4">
+              <div className="mt-6 grid grid-cols-2 gap-4">
                 <a
                   href="#"
                   className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-textPrimary ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
@@ -50,8 +50,8 @@ export default function Example() {
                   <SvgGithub className="w-5 h-5" />
                   <span className="text-sm font-semibold leading-6">GitHub</span>
                 </a>
-              </div> */}
-            </div>
+              </div>
+            </div> */}
           </div>
         </div>
       </div>
