@@ -1,9 +1,8 @@
 import type { Config } from 'tailwindcss';
+import colors from 'tailwindcss/colors';
+import tailwindForms from '@tailwindcss/forms';
 
-const colors = require('tailwindcss/colors');
-
-const config: Config = {
-  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}', '../../packages/ui/src/**/*.{js,ts,jsx,tsx,mdx}'],
+const config: Omit<Config, 'content'> = {
   theme: {
     extend: {
       fontFamily: {
@@ -51,6 +50,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [tailwindForms],
 };
 export default config;
