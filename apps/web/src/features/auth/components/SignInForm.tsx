@@ -5,15 +5,20 @@ import { useSignInFormSchema } from '../hooks/useSignInFormSchema';
 import { Input } from '../../../shared/components/Input';
 import { FieldErrorMessage } from '../../../shared/components/FieldErrorMessage';
 import { Button } from '../../../shared/components/Button';
+import { useAuth } from '@repo/pocketbase-react';
 
 export const SignInForm = (): JSX.Element => {
   const formSchema = useSignInFormSchema();
+
+  const { actions } = useAuth();
 
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={formSchema}
-      onSubmit={values => {}}
+      onSubmit={async values => {
+        await actions.signInWithEmail(values.email, values.password);
+      }}
     >
       <Form noValidate>
         <Input

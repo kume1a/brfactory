@@ -2,6 +2,9 @@
   "name": "@repo/pocketbase-react",
   "version": "0.1.28",
   "description": "Unofficial React SDK (React, React Native, Expo) for interacting with the PocketBase JS SDK",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "license": "MIT",
   "main": "lib/index.js",
   "types": "es/index.d.ts",
@@ -32,10 +35,10 @@
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.19.3",
     "@babel/plugin-proposal-decorators": "^7.12.1",
-    "@babel/plugin-transform-react-jsx": "^7.12.1",
-    "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/plugin-proposal-private-methods": "^7.12.1",
     "@babel/plugin-proposal-private-property-in-object": "^7.12.1",
+    "@babel/plugin-transform-react-jsx": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-typescript": "^7.14.5",
     "@rollup/plugin-babel": "^5.2.1",
@@ -53,6 +56,7 @@
     "pocketbase": "0.8.1",
     "react-redux": "^8.0.4",
     "redux": "^4.2.0",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^3.1.0"
   }
 }

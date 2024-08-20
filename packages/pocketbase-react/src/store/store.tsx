@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { appReducer } from './reducers';
-import thunk from 'redux-thunk';
+import { thunk } from 'redux-thunk';
 import { RecordAction } from './reducers/records';
 import { StorageService } from '../service/storage';
 
@@ -35,7 +35,7 @@ const reducer = combineReducers({
 
 const store = configureStore({
   reducer,
-  middleware: [thunk],
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 });
 
 type AppDispatch = typeof store.dispatch<RecordAction>;
