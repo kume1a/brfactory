@@ -13,6 +13,7 @@ const config = {
   input: 'src/index.ts',
   external: Object.keys(pkg.peerDependencies || {}),
   output: {
+    file: 'dist/index.js',
     format: 'umd',
     name: 'PocketbaseReact',
     globals: {

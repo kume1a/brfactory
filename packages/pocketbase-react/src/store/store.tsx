@@ -4,7 +4,7 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { appReducer } from './reducers';
 import thunk from 'redux-thunk';
 import { RecordAction } from './reducers/records';
-import { StorageService } from '../service/Storage';
+import { StorageService } from '../service/storage';
 
 interface Storage {
   getItem(key: string, ...args: Array<any>): any;

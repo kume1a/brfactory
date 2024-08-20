@@ -7,7 +7,7 @@ import { store, persistor } from '../store/store';
 import { ClientProvider } from './client';
 import { ContentProvider } from './content';
 import { AuthProvider } from './auth';
-import { StorageService } from '../service/Storage';
+import { StorageService } from '../service/storage';
 
 export const PocketbaseContext = createContext<PocketBase | null>(null);
 

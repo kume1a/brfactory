@@ -2,7 +2,7 @@ import { Collection } from 'pocketbase';
 import * as React from 'react';
 import { createContext } from 'react';
 import { useClientContext } from '../hooks/useClientContext';
-import { StorageService } from '../service/Storage';
+import { StorageService } from '../service/storage';
 
 export type AuthProviderInfo = {
   name: string;

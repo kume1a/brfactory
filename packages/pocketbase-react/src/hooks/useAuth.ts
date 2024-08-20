@@ -1,7 +1,7 @@
 import { Admin, Record } from 'pocketbase';
 import { useContext, useEffect, useState } from 'react';
 import { AuthActions, AuthContext } from '../context/auth';
-import { StorageService } from '../service/Storage';
+import { StorageService } from '../service/storage';
 import { useClientContext } from './useClientContext';
 
 export interface AuthContextInterface {
