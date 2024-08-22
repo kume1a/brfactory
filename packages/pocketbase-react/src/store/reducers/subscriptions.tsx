@@ -1,7 +1,7 @@
 import * as ReduxType from '../types';
 
 export type SubscriptionAction = {
-  type: ReduxType.SubscriptionsTypes;
+  type: ReduxType.SubscriptionsType;
   payload: string | string[];
 };
 

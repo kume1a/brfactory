@@ -109,10 +109,10 @@ export const AuthProvider = (props: AuthProviderProps) => {
   };
 
   React.useEffect(() => {
-    (async () => {
-      const methods = await client?.collection('users').listAuthMethods();
-      setAuthProviders(methods?.authProviders);
-    })();
+    client
+      ?.collection('users')
+      .listAuthMethods()
+      .then((data) => setAuthProviders(data?.authProviders));
   }, [props.webRedirectUrl, props.mobileRedirectUrl]);
 
   return <AuthContext.Provider value={actions}>{props.children}</AuthContext.Provider>;
