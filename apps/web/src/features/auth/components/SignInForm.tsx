@@ -5,19 +5,25 @@ import { useSignInFormSchema } from '../hooks/useSignInFormSchema';
 import { Input } from '../../../shared/components/Input';
 import { FieldErrorMessage } from '../../../shared/components/FieldErrorMessage';
 import { Button } from '../../../shared/components/Button';
-import { useAuth } from '@repo/pocketbase-react';
+import { useSignIn } from '../hooks/useSignIn';
+import { useRouter } from 'next/navigation';
+import { routes } from '../../../shared/contant/routes';
+import { CircularProgressIndicator } from '../../../shared/components/CircularProgressIndicator';
 
 export const SignInForm = (): JSX.Element => {
   const formSchema = useSignInFormSchema();
+  const router = useRouter();
 
-  const { actions } = useAuth();
+  const { signInWithEmail, isExecuting } = useSignIn();
 
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={formSchema}
       onSubmit={async values => {
-        await actions.signInWithEmail(values.email, values.password);
+        await signInWithEmail(values.email, values.password, () => {
+          router.replace(routes.dashboard);
+        });
       }}
     >
       <Form noValidate>
@@ -52,8 +58,9 @@ export const SignInForm = (): JSX.Element => {
 
         <div className="h-4" />
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full flex gap-2">
           Sign in
+          {isExecuting ? <CircularProgressIndicator /> : null}
         </Button>
       </Form>
     </Formik>

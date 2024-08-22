@@ -5,18 +5,18 @@ const setSubscriptions = (payload: string[]) =>
   ({
     type: ReduxType.SET_SUBSCRIPTIONS,
     payload,
-  } as SubscriptionAction);
+  }) as SubscriptionAction;
 
 const addSubscription = (payload: string) =>
   ({
     type: ReduxType.ADD_SUBSCRIPTION,
     payload,
-  } as SubscriptionAction);
+  }) as SubscriptionAction;
 
 const deleteSubscription = (payload: string) =>
   ({
     type: ReduxType.DELETE_SUBSCRIPTION,
     payload,
-  } as SubscriptionAction);
+  }) as SubscriptionAction;
 
 export { setSubscriptions, addSubscription, deleteSubscription };

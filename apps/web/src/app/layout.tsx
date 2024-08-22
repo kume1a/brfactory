@@ -6,24 +6,19 @@ import './globals.css';
 import { ToastContainer } from 'react-toastify';
 import classNames from 'classnames';
 import { Pocketbase } from '@repo/pocketbase-react';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// export const metadata: Metadata = {
-//   title: 'BrFactory',
-// };
-
-// App.tsx
-
-const serverURL = 'http://127.0.0.1:8090/api';
-const collections = ['COLLECTION_NAME_01', 'COLLECTION_NAME_02'];
+const serverURL = 'http://127.0.0.1:8090';
+const collections = ['users'];
 const webRedirectURL = 'http://...';
-const mobileRedirectURL = 'expo://...'; // for example
+const mobileRedirectURL = 'expo://...';
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: JSX.Element;
 }>) {
   return (
     <html lang="en" className="h-full">
@@ -35,7 +30,7 @@ export default function RootLayout({
           initialCollections={collections}
           webRedirectUrl={webRedirectURL}
           mobileRedirectUrl={mobileRedirectURL}
-          openURL={async url => {}}
+          openURL={async () => {}}
         >
           {children}
         </Pocketbase>

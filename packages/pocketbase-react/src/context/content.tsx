@@ -99,10 +99,7 @@ export const ContentProvider = (props: ContentProviderProps) => {
         .catch(tempErrorHandler);
     },
     create: async (collectionName: string, record: {}) => {
-      return await client
-        ?.collection(collectionName)
-        .create(record)
-        .catch(tempErrorHandler);
+      return await client?.collection(collectionName).create(record).catch(tempErrorHandler);
     },
     update: async (collectionName: string, recordId: string, record: {}) => {
       return await client
@@ -111,10 +108,7 @@ export const ContentProvider = (props: ContentProviderProps) => {
         .catch(tempErrorHandler);
     },
     delete: async (collectionName: string, recordId: string) => {
-      return await client
-        ?.collection(collectionName)
-        .delete(recordId)
-        .catch(tempErrorHandler);
+      return await client?.collection(collectionName).delete(recordId).catch(tempErrorHandler);
     },
   };
 
