@@ -1,4 +1,4 @@
-import { Record } from '../../interfaces/Record';
+import { Record } from '../../interfaces/record';
 import { RecordAction } from '../reducers/records';
 import * as ReduxType from '../types';
 

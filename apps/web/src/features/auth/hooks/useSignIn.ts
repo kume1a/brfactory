@@ -6,7 +6,7 @@ export const useSignIn = (): {
   isExecuting: boolean;
   signInWithEmail: (email: string, password: string, onSuccess: VoidFunction) => Promise<void>;
 } => {
-  const { actions, isSignedIn, user } = useAuth();
+  const { actions, isSignedIn } = useAuth();
 
   const [isExecuting, setIsExecuting] = useState(false);
 

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { ContentContext } from '../context';
-import { Record } from '../interfaces/Record';
+import { Record } from '../interfaces/record';
 import { useAppSelector } from '../store';
 
 export type SubscribeType = () => Promise<void | undefined>;

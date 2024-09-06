@@ -1,4 +1,4 @@
-import { Record } from '../../interfaces/Record';
+import { Record } from '../../interfaces/record';
 import * as ReduxType from '../types';
 
 export interface ReduxRecord {
