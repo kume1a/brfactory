@@ -1,10 +1,7 @@
 import { useContext } from 'react';
 import { ClientContext } from '../context/client';
+import Pocketbase from 'pocketbase';
 
-const useClientContext = () => {
-  const context = useContext(ClientContext);
-
-  return context;
+export const useClientContext = (): Pocketbase | null => {
+  return useContext(ClientContext);
 };
-
-export { useClientContext };

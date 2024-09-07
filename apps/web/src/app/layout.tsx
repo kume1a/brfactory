@@ -10,10 +10,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
-const serverURL = 'http://127.0.0.1:8090';
-const collections = ['users'];
-const webRedirectURL = 'http://...';
-const mobileRedirectURL = 'expo://...';
+const serverURL = process.env.NEXT_PUBLIC_PB_URL ?? '';
+const collections = [process.env.NEXT_PUBLIC_PB_USER_COLLECTION ?? ''];
+const webRedirectURL = '';
+const mobileRedirectURL = '';
 
 export default function RootLayout({
   children,

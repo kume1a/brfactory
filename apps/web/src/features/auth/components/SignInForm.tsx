@@ -5,25 +5,17 @@ import { useSignInFormSchema } from '../hooks/useSignInFormSchema';
 import { Input } from '../../../shared/components/Input';
 import { FieldErrorMessage } from '../../../shared/components/FieldErrorMessage';
 import { Button } from '../../../shared/components/Button';
-import { useSignIn } from '../hooks/useSignIn';
-import { useRouter } from 'next/navigation';
-import { routes } from '../../../shared/contant/routes';
-import { CircularProgressIndicator } from '../../../shared/components/CircularProgressIndicator';
+import { signInAction } from '../actions/signIn.action';
 
 export const SignInForm = (): JSX.Element => {
   const formSchema = useSignInFormSchema();
-  const router = useRouter();
-
-  const { signInWithEmail, isExecuting } = useSignIn();
 
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={formSchema}
       onSubmit={async values => {
-        await signInWithEmail(values.email, values.password, () => {
-          router.replace(routes.dashboard);
-        });
+        signInAction(values);
       }}
     >
       <Form noValidate>
@@ -60,7 +52,7 @@ export const SignInForm = (): JSX.Element => {
 
         <Button type="submit" className="w-full flex gap-2">
           Sign in
-          {isExecuting ? <CircularProgressIndicator /> : null}
+          {/* {isExecuting ? <CircularProgressIndicator /> : null} */}
         </Button>
       </Form>
     </Formik>
