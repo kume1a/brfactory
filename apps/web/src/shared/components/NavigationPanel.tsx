@@ -5,7 +5,6 @@ import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessu
 import {
   Bars3Icon as IconBars3,
   CalendarIcon as IconCalendar,
-  ChartPieIcon as IconChartPie,
   XMarkIcon as IconXMark,
 } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
@@ -13,12 +12,19 @@ import Image from 'next/image';
 import IconInstagram from '@public/svg/instagram.svg';
 import IconDashboard from '@public/svg/dasboard.svg';
 import { BlankProfileImage } from './BlankProfileImage';
+import { usePathname } from 'next/navigation';
+import { routes } from '../constant/routes';
 
-const navigation = [
-  { name: 'Dashboard', href: '#', icon: IconDashboard, current: true },
-  { name: 'IG', href: '#', icon: IconInstagram, current: false },
-  { name: 'Scheduled', href: '#', icon: IconCalendar, current: false },
-  { name: 'Reports', href: '#', icon: IconChartPie, current: false },
+type NavigationItem = {
+  name: string;
+  href: string;
+  icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+};
+
+const navigation: NavigationItem[] = [
+  { name: 'Dashboard', href: routes.dashboard, icon: IconDashboard },
+  { name: 'IG accounts', href: routes.igAccounts, icon: IconInstagram },
+  { name: 'Scheduled', href: routes.scheduled, icon: IconCalendar },
 ];
 
 export const NavigationPanel = (): JSX.Element => {
@@ -96,30 +102,36 @@ export const NavigationPanel = (): JSX.Element => {
 };
 
 const NavigationItems = (): JSX.Element => {
+  const pathname = usePathname();
+
   return (
     <ul role="list" className="-mx-2 space-y-1">
-      {navigation.map(item => (
-        <li key={item.name}>
-          <a
-            href={item.href}
-            className={classNames(
-              item.current
-                ? 'bg-gray-50 text-textPrimary'
-                : 'text-textSecondary hover:bg-gray-50 hover:text-textPrimary',
-              'group flex gap-x-4 rounded-md p-2 text-sm font-semibold leading-6 transition-colors'
-            )}
-          >
-            <item.icon
-              className={classNames(
-                'w-5 h-5 shrink-0',
-                item.current ? 'text-textPrimary' : 'text-gray-400 group-hover:text-textPrimary'
-              )}
-            />
+      {navigation.map(item => {
+        const isCurrent = pathname === item.href;
 
-            {item.name}
-          </a>
-        </li>
-      ))}
+        return (
+          <li key={item.name}>
+            <a
+              href={item.href}
+              className={classNames(
+                isCurrent
+                  ? 'bg-bgPrimaryContainer text-textPrimary'
+                  : 'text-textSecondary hover:bg-gray-50 hover:text-textPrimary',
+                'group flex gap-x-4 rounded-md p-2 text-sm font-semibold leading-6 transition-colors'
+              )}
+            >
+              <item.icon
+                className={classNames(
+                  'w-5 h-5 shrink-0',
+                  isCurrent ? 'text-textPrimary' : 'text-gray-400 group-hover:text-textPrimary'
+                )}
+              />
+
+              {item.name}
+            </a>
+          </li>
+        );
+      })}
     </ul>
   );
 };

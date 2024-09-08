@@ -1,5 +1,6 @@
+import React from 'react';
 import { MainLayout } from '../../shared/components/MainLayout';
 
 export default function Example() {
-  return <MainLayout>Dashboard</MainLayout>;
+  return <MainLayout>Scheduled</MainLayout>;
 }
