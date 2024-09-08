@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isTokenExpired } from 'pocketbase';
-import { routes } from './shared/contant/routes';
+import { routes } from './shared/constant/routes';
 
 const isGuardedPage = (pathname: string) => ![routes.signIn].includes(pathname);
 
