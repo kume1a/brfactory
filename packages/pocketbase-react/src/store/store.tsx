@@ -14,13 +14,13 @@ interface Storage {
 
 const CustomStorage: Storage = {
   getItem: async (key: string, ..._args: Array<any>) => {
-    return await StorageService.get(key);
+    return StorageService.get(key);
   },
   setItem: async (key: string, value: any, ..._args: Array<any>) => {
-    return await StorageService.set(key, value);
+    return StorageService.set(key, value);
   },
   removeItem: async (key: string, ..._args: Array<any>) => {
-    return await StorageService.remove(key);
+    return StorageService.remove(key);
   },
 };
 

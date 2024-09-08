@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({ subsets: ['latin'] });
 
 const serverURL = process.env.NEXT_PUBLIC_PB_URL ?? '';
-const collections = [process.env.NEXT_PUBLIC_PB_USER_COLLECTION ?? ''];
+const collections: string[] = [];
 const webRedirectURL = '';
 const mobileRedirectURL = '';
 

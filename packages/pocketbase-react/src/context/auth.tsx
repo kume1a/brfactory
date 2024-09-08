@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { createContext } from 'react';
+import { createContext, useEffect } from 'react';
 import { useClientContext } from '../hooks/useClientContext';
 import { StorageService } from '../service/storage';
 
@@ -110,10 +110,10 @@ export const AuthProvider = (props: AuthProviderProps) => {
     },
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     client
       ?.collection('users')
-      .listAuthMethods()
+      .listAuthMethods({ requestKey: null })
       .then((data) => setAuthProviders(data?.authProviders));
   }, [props.webRedirectUrl, props.mobileRedirectUrl]);
 
