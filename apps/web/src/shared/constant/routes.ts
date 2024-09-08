@@ -4,4 +4,5 @@ export const routes = {
   dashboard: '/dashboard',
   igAccounts: '/igAccounts',
   scheduled: '/scheduled',
+  igAccountsMutate: '/igAccounts/mutate',
 };

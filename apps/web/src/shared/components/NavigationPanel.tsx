@@ -14,6 +14,7 @@ import IconDashboard from '@public/svg/dasboard.svg';
 import { BlankProfileImage } from './BlankProfileImage';
 import { usePathname } from 'next/navigation';
 import { routes } from '../constant/routes';
+import Link from 'next/link';
 
 type NavigationItem = {
   name: string;
@@ -82,14 +83,11 @@ export const NavigationPanel = (): JSX.Element => {
                 <NavigationItems />
               </li>
               <li className="-mx-6 mt-auto">
-                <a
-                  href="#"
-                  className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-textPrimary hover:bg-gray-50"
-                >
+                <div className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-textPrimary hover:bg-gray-50">
                   <BlankProfileImage containerClassName="w-8 h-8" />
 
-                  <span aria-hidden="true">Tom Cook</span>
-                </a>
+                  <span aria-hidden="true">Sign out</span>
+                </div>
               </li>
             </ul>
           </nav>
@@ -111,7 +109,7 @@ const NavigationItems = (): JSX.Element => {
 
         return (
           <li key={item.name}>
-            <a
+            <Link
               href={item.href}
               className={classNames(
                 isCurrent
@@ -128,7 +126,7 @@ const NavigationItems = (): JSX.Element => {
               />
 
               {item.name}
-            </a>
+            </Link>
           </li>
         );
       })}
@@ -161,9 +159,8 @@ const OpenSidebarButton = ({ onClick }: { onClick: VoidFunction }): JSX.Element 
         />
       </button>
       <div className="flex-1 text-sm font-semibold leading-6 text-gray-900">Dashboard</div>
-      <a href="#">
-        <BlankProfileImage containerClassName="w-8 h-8" />
-      </a>
+
+      <BlankProfileImage containerClassName="w-8 h-8" />
     </div>
   );
 };

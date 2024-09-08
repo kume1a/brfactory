@@ -13,7 +13,7 @@ type Props = {
 
 export const Breadcrumb = ({ pages }: Props): JSX.Element => {
   return (
-    <nav aria-label="Breadcrumb" className="flex">
+    <nav aria-label="Breadcrumb" className="flex mb-2">
       <ol role="list" className="flex items-center space-x-3">
         <li>
           <HomeIcon

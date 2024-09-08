@@ -1,3 +1,5 @@
+'use client';
+
 import cn from 'classnames';
 import Link, { LinkProps as NextLinkProps } from 'next/link';
 import { Ref } from 'react';
