@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { createContext } from 'react';
 import { useClientContext } from '../hooks/useClientContext';
@@ -42,7 +44,7 @@ export type AuthProviderProps = {
   children: React.ReactNode;
   webRedirectUrl: string;
   mobileRedirectUrl: string;
-  openURL: (url: string) => Promise<void>;
+  // openURL: (url: string) => Promise<void>;
 };
 
 export const AuthProvider = (props: AuthProviderProps) => {
@@ -66,7 +68,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
         typeof document !== 'undefined' ? props.webRedirectUrl : props.mobileRedirectUrl;
       const url = authProvider?.authUrl + redirectURL;
       await StorageService.set('provider', JSON.stringify(authProviders));
-      await props.openURL(url);
+      // await props.openURL(url);
     },
     submitProviderResult: async (url: string) => {
       const params = new URLSearchParams(url.split('?')[1]);

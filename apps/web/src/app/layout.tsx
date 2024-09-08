@@ -1,11 +1,9 @@
-'use client';
-
 import { Inter } from 'next/font/google';
-import '@repo/ui/styles.css';
-import './globals.css';
 import { ToastContainer } from 'react-toastify';
 import classNames from 'classnames';
 import { Pocketbase } from '@repo/pocketbase-react';
+import '@repo/ui/styles.css';
+import './globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -23,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={classNames(inter.className, 'h-full bg-body')}>
+        <h1 className="text-black">hek12</h1>
         <ToastContainer pauseOnFocusLoss={false} />
 
         <Pocketbase
@@ -30,7 +29,7 @@ export default function RootLayout({
           initialCollections={collections}
           webRedirectUrl={webRedirectURL}
           mobileRedirectUrl={mobileRedirectURL}
-          openURL={async () => {}}
+          // openURL={async () => {}}
         >
           {children}
         </Pocketbase>

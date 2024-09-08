@@ -1,3 +1,5 @@
+'use client';
+
 import * as store from '../store/store';
 import * as React from 'react';
 import { createContext, useEffect } from 'react';

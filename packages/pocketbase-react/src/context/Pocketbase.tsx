@@ -1,5 +1,8 @@
-import * as React from 'react';
-import { createContext, useEffect } from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
+
+import { createContext } from 'react';
 import PocketBase from 'pocketbase';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -11,14 +14,13 @@ import { StorageService } from '../service/storage';
 
 export const PocketbaseContext = createContext<PocketBase | null>(null);
 
-export type PocketbaseProviderProps = {
-  children: React.ReactNode;
+export type PocketbaseProviderProps = React.PropsWithChildren<{
   serverURL: string;
   webRedirectUrl: string;
   mobileRedirectUrl: string;
-  openURL: (url: string) => Promise<void>;
+  // openURL: (url: string) => Promise<void>;
   initialCollections?: string[];
-};
+}>;
 
 export const Pocketbase = (props: PocketbaseProviderProps) => {
   const [client, setClient] = React.useState<PocketBase | null>(null);
@@ -47,7 +49,8 @@ export const Pocketbase = (props: PocketbaseProviderProps) => {
           <AuthProvider
             webRedirectUrl={props.webRedirectUrl}
             mobileRedirectUrl={props.mobileRedirectUrl}
-            openURL={props.openURL}>
+            // openURL={props.openURL}
+          >
             <ContentProvider collections={initialCollections}>{props.children}</ContentProvider>
           </AuthProvider>
         </PersistGate>

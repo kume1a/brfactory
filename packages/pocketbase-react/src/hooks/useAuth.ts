@@ -1,3 +1,5 @@
+'use client';
+
 import { Admin, Record } from 'pocketbase';
 import { useContext, useEffect, useState } from 'react';
 import { AuthActions, AuthContext } from '../context/auth';

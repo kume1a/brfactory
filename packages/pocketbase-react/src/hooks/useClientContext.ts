@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext } from 'react';
 import { ClientContext } from '../context/client';
 import Pocketbase from 'pocketbase';
