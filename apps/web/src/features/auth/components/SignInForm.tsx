@@ -14,9 +14,7 @@ export const SignInForm = (): JSX.Element => {
     <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={formSchema}
-      onSubmit={async values => {
-        signInAction(values);
-      }}
+      onSubmit={values => signInAction(values)}
     >
       <Form noValidate>
         <Input

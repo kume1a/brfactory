@@ -5,14 +5,19 @@ import { Input } from '../../../shared/components/Input';
 import { FieldErrorMessage } from '../../../shared/components/FieldErrorMessage';
 import { Button } from '../../../shared/components/Button';
 import { useMutateIgAccountFormSchema } from '../hooks/useMutateIgAccountFormSchema';
-import { useAppContent } from '@repo/pocketbase-react';
+import { useAppContent, useAuth } from '@repo/pocketbase-react';
 import { toast } from 'react-toastify';
 import { CircularProgressIndicator } from '../../../shared/components/CircularProgressIndicator';
 
 export const MutateIgAccountForm = (): JSX.Element => {
+  const { user, isSignedIn } = useAuth();
+  const { actions } = useAppContent('igAccounts');
+
   const formSchema = useMutateIgAccountFormSchema();
 
-  const { actions } = useAppContent('igAccounts');
+  if (!user) {
+    return <div>Not authenticated</div>;
+  }
 
   return (
     <Formik
@@ -21,7 +26,7 @@ export const MutateIgAccountForm = (): JSX.Element => {
       onSubmit={async (values, { setSubmitting }) => {
         try {
           setSubmitting(true);
-          await actions.create(values);
+          await actions.create({ ...values, user: user.id });
         } catch (e) {
           toast.error('Error creating IG account' + JSON.stringify(e));
           console.error(e);
