@@ -22,14 +22,11 @@
     "build:umd": "cross-env NODE_ENV=development rollup -c -o dist/pocketbase-react.js",
     "build:umd:min": "cross-env NODE_ENV=production rollup -c -o dist/pocketbase-react.min.js",
     "build:types": "tsc",
-    "build": "yarn build:types && yarn build:commonjs && yarn build:es && yarn build:umd && yarn build:umd:min",
+    "build": "pnpm build:types && pnpm build:commonjs && pnpm build:es && pnpm build:umd && pnpm build:umd:min",
     "clean": "rimraf lib dist es coverage",
     "dev": "rollup -c -w",
     "rollup": "rollup -c",
     "prepublishOnly": "npm run build"
-  },
-  "peerDependencies": {
-    "pocketbase": "0.8.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
@@ -57,7 +54,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
-    "pocketbase": "0.8.1",
+    "pocketbase": "0.21.5",
     "react-redux": "^8.0.4",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",

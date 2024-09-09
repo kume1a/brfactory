@@ -4,6 +4,7 @@ import * as React from 'react';
 import { createContext, useEffect } from 'react';
 import { useClientContext } from '../hooks/useClientContext';
 import { StorageService } from '../service/storage';
+import { AuthMethodsList } from 'pocketbase';
 
 export type AuthProviderInfo = {
   name: string;
@@ -114,7 +115,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
     client
       ?.collection('users')
       .listAuthMethods({ requestKey: null })
-      .then((data) => setAuthProviders(data?.authProviders));
+      .then((data: AuthMethodsList) => setAuthProviders(data?.authProviders));
   }, [props.webRedirectUrl, props.mobileRedirectUrl]);
 
   return <AuthContext.Provider value={actions}>{props.children}</AuthContext.Provider>;

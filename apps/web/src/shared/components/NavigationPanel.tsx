@@ -7,6 +7,7 @@ import {
   CalendarIcon as IconCalendar,
   XMarkIcon as IconXMark,
 } from '@heroicons/react/24/outline';
+
 import classNames from 'classnames';
 import Image from 'next/image';
 import IconInstagram from '@public/svg/instagram.svg';
@@ -19,7 +20,7 @@ import Link from 'next/link';
 type NavigationItem = {
   name: string;
   href: string;
-  icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+  icon: any;
 };
 
 const navigation: NavigationItem[] = [
