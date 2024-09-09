@@ -46,4 +46,6 @@ const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 const persistor = persistStore(store);
 
-export { AppDispatch, RootState, useAppDispatch, useAppSelector, store, persistor };
+export { useAppDispatch, useAppSelector, store, persistor };
+
+export type { AppDispatch, RootState };

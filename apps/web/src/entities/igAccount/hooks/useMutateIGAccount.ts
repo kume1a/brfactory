@@ -18,7 +18,7 @@ export const useMutateIGAccount = (): {
   const createIGAccount = async (data: Omit<CreateIGAccountInput, 'user'>) => {
     try {
       setIsExecuting(true);
-      await create({ ...data, user: authUser.id });
+      await create({ ...data, user: authUser?.id });
 
       toast.success('IG Account created successfully');
     } catch (e) {

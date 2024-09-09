@@ -20,13 +20,21 @@ export const usePBCollectionRepository = <T, CREATE_INPUT, UPDATE_INPUT>(
   CREATE_INPUT extends Record<string, any> ? CREATE_INPUT : never,
   UPDATE_INPUT extends Record<string, any> ? UPDATE_INPUT : never
 > => {
-  const client: Pocketbase = useClientContext();
+  const client: Pocketbase | null = useClientContext();
 
   return {
     getAll: () => {
-      return client.collection<T>(collectionName).getFullList();
+      if (!client) {
+        return Promise.resolve([]);
+      }
+
+      return client?.collection<T>(collectionName).getFullList();
     },
     getById: async id => {
+      if (!client) {
+        return null;
+      }
+
       try {
         return client.collection<T>(collectionName).getOne(id);
       } catch (e) {
@@ -35,12 +43,24 @@ export const usePBCollectionRepository = <T, CREATE_INPUT, UPDATE_INPUT>(
       return null;
     },
     create: input => {
+      if (!client) {
+        return Promise.resolve({} as T);
+      }
+
       return client.collection<T>(collectionName).create(input);
     },
     updateById: (id, input) => {
+      if (!client) {
+        return Promise.resolve({} as T);
+      }
+
       return client.collection<T>(collectionName).update(id, input);
     },
     deleteById: id => {
+      if (!client) {
+        return Promise.resolve(false);
+      }
+
       return client.collection<T>(collectionName).delete(id);
     },
   };
