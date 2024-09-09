@@ -3,7 +3,7 @@ import { MainLayout } from '../../shared/components/MainLayout';
 import { Breadcrumb } from '../../shared/components/Breadcrumb';
 import { routes } from '../../shared/constant/routes';
 import { Button } from '../../shared/components/Button';
-import { IGAccountsTable } from '../../features/igAccount/components/IGAccountsList';
+import { IGAccountsTable } from '../../entities/igAccount/components/IGAccountsList';
 
 export default function Example() {
   return (
