@@ -6,13 +6,16 @@ import { getLocaleDateTime } from '../../../shared/util/datetime';
 import { useIGAccounts } from '../hooks/useIGAccounts';
 import { IGAccount } from '../igAccount.type';
 import { useState } from 'react';
+import { Button } from '../../../shared/components/Button';
+import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
+import { useRouter } from 'next/navigation';
+import { routes } from '../../../shared/constant/routes';
+import { ConfirmationModal } from '../../../shared/components/modal';
+import { useBoolean } from '../../../shared/hooks/useBoolean';
+import { useMutateIGAccount } from '../hooks/useMutateIGAccount';
 
-type Props = {
-  className?: string;
-};
-
-export const IGAccountsTable = ({ className }: Props): JSX.Element => {
-  const records = useIGAccounts();
+export const IGAccountsTable = (): JSX.Element => {
+  const { data: igAccounts, refetch: refetchIGAccounts } = useIGAccounts();
 
   const [visiblePasswordRowIds, setVisiblePasswordRowIds] = useState<string[]>([]);
 
@@ -26,32 +29,31 @@ export const IGAccountsTable = ({ className }: Props): JSX.Element => {
 
   return (
     <TableConstructor<IGAccount>
-      tableData={records}
+      tableData={igAccounts}
       cellClassName="p-3"
       rowClassName="p-3 h-22"
       headerCellClassName="!p-3 text-xs font-medium tracking-wider"
-      className={className}
       useBottomBorderOnLastRow={false}
       columnSchema={[
         {
           columnTitle: 'ID',
-          cellContent: record => <p>{record.id}</p>,
+          cellContent: record => <>{record.id}</>,
         },
         {
           columnTitle: 'Created at',
           cellContent: record => (
-            <p>
+            <>
               {getLocaleDateTime(record.created).toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)}
-            </p>
+            </>
           ),
         },
         {
           columnTitle: 'Username',
-          cellContent: record => <p>{record.username}</p>,
+          cellContent: record => <>{record.username}</>,
         },
         {
           columnTitle: 'Email',
-          cellContent: record => <p>{record.email}</p>,
+          cellContent: record => <>{record.email}</>,
         },
         {
           columnTitle: 'Password',
@@ -64,7 +66,59 @@ export const IGAccountsTable = ({ className }: Props): JSX.Element => {
             </p>
           ),
         },
+        {
+          columnTitle: '',
+          cellContent: record => (
+            <IGAccountsActions record={record} onDeleteIGAccount={refetchIGAccounts} />
+          ),
+        },
       ]}
     />
+  );
+};
+
+type IGAccountsActionsProps = {
+  record: IGAccount;
+  onDeleteIGAccount: VoidFunction;
+};
+
+const IGAccountsActions = ({ record, onDeleteIGAccount }: IGAccountsActionsProps): JSX.Element => {
+  const router = useRouter();
+
+  const { deleteIGAccount } = useMutateIGAccount();
+
+  const [confirmDeleteShowing, showConfirmDelete, hideConfirmDelete] = useBoolean(false);
+
+  return (
+    <>
+      {confirmDeleteShowing ? (
+        <ConfirmationModal
+          onClose={hideConfirmDelete}
+          title="Delete IG Account"
+          content="Are you sure you want to delete this IG Account?"
+          onPositiveClick={async () => {
+            await deleteIGAccount(record.id);
+            onDeleteIGAccount();
+          }}
+          onNegativeClick={hideConfirmDelete}
+        />
+      ) : null}
+
+      <span className="flex gap-1">
+        <Button
+          className="!rounded-full !p-2"
+          href={{
+            pathname: routes.igAccountsMutate,
+            query: { igAccountId: record.id },
+          }}
+        >
+          <PencilIcon className="w-4 h-4" />
+        </Button>
+
+        <Button className="!rounded-full !p-2" onClick={showConfirmDelete}>
+          <TrashIcon className="w-4 h-4" />
+        </Button>
+      </span>
+    </>
   );
 };

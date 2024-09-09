@@ -2,8 +2,9 @@ import React from 'react';
 import { Modal } from './Modal';
 import { DialogTitle } from '@headlessui/react';
 
-import IconClose from '@public/svg/close.svg';
 import { Button } from '../Button';
+import { XMarkIcon } from '@heroicons/react/20/solid';
+import classNames from 'classnames';
 
 type Props = {
   onClose: VoidFunction;
@@ -31,10 +32,13 @@ export const ConfirmationModal = ({
           <span className="text-lg font-medium leading-6 ">{title}</span>
 
           <div
-            className="w-6 h-6 cursor-pointer text-secondary-element hover:text-black transition-colors"
-            onClick={() => onClose()}
+            className={classNames(
+              'w-7 h-7 rounded-full hover:bg-bgPrimaryContainer cursor-pointer text-textSecondary hover:text-textPrimary transition-colors',
+              'flex justify-center items-center'
+            )}
+            onClick={onClose}
           >
-            <IconClose />
+            <XMarkIcon className="w-6 h-6" />
           </div>
         </DialogTitle>
       ) : null}

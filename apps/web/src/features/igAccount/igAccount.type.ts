@@ -6,3 +6,12 @@ export type IGAccount = {
   email: string;
   password: string;
 };
+
+export type CreateIGAccountInput = {
+  username: string;
+  email: string;
+  password: string;
+  user: string;
+};
+
+export type UpdateIGAccountInput = Partial<Omit<CreateIGAccountInput, 'user'>>;
