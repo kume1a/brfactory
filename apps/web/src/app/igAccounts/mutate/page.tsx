@@ -2,7 +2,7 @@ import React from 'react';
 import { MainLayout } from '../../../shared/components/MainLayout';
 import { Breadcrumb } from '../../../shared/components/Breadcrumb';
 import { routes } from '../../../shared/constant/routes';
-import { MutateIgAccountForm } from '../../../features/igAccount/components/MutateIgAccountForm';
+import { MutateIgAccountForm } from '../../../features/igAccount/components/MutateIGAccountForm';
 
 export default function Example() {
   return (

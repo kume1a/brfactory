@@ -1,4 +1,5 @@
 import { HomeIcon } from '@heroicons/react/20/solid';
+import classNames from 'classnames';
 import Link from 'next/link';
 
 type BreadcrumbPage = {
@@ -34,8 +35,12 @@ export const Breadcrumb = ({ pages }: Props): JSX.Element => {
               </svg>
               <Link
                 href={page.href}
+                aria-disabled={page.current}
                 aria-current={page.current ? 'page' : undefined}
-                className="ml-3 text-sm font-medium text-gray-500 hover:text-gray-700"
+                className={classNames(
+                  'ml-3 text-sm font-medium text-gray-500',
+                  page.current ? 'pointer-events-none' : 'hover:text-gray-700'
+                )}
               >
                 {page.name}
               </Link>
