@@ -13,9 +13,15 @@ type PBRepository<
   deleteById: (id: string) => Promise<boolean>;
 };
 
-export const usePBCollectionRepository = <T, CREATE_INPUT, UPDATE_INPUT>(
-  collectionName: string
-): PBRepository<
+type PBRepositoryOptions = {
+  collectionName: string;
+  formData?: boolean;
+};
+
+export const usePBCollectionRepository = <T, CREATE_INPUT, UPDATE_INPUT>({
+  collectionName,
+  formData,
+}: PBRepositoryOptions): PBRepository<
   T,
   CREATE_INPUT extends Record<string, any> ? CREATE_INPUT : never,
   UPDATE_INPUT extends Record<string, any> ? UPDATE_INPUT : never
@@ -47,11 +53,35 @@ export const usePBCollectionRepository = <T, CREATE_INPUT, UPDATE_INPUT>(
         return Promise.resolve({} as T);
       }
 
-      return client.collection<T>(collectionName).create(input);
+      const data = formData ? new FormData() : input;
+
+      if (formData) {
+        Object.entries(input).forEach(([key, value]) => {
+          if (value instanceof File) {
+            data.append(key, value);
+          } else {
+            data.append(key, JSON.stringify(value));
+          }
+        });
+      }
+
+      return client.collection<T>(collectionName).create(data);
     },
     updateById: (id, input) => {
       if (!client) {
         return Promise.resolve({} as T);
+      }
+
+      const data = formData ? new FormData() : input;
+
+      if (formData) {
+        Object.entries(input).forEach(([key, value]) => {
+          if (value instanceof File) {
+            data.append(key, value);
+          } else {
+            data.append(key, JSON.stringify(value));
+          }
+        });
       }
 
       return client.collection<T>(collectionName).update(id, input);

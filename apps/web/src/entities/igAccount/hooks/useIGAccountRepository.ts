@@ -4,7 +4,7 @@ import { usePBCollectionRepository } from '../../../shared/hooks/usePBCollection
 const collectionName = process.env.NEXT_PUBLIC_PB_IG_ACCOUNTS_COLLECTION ?? '';
 
 export const useIGAccountRepository = () => {
-  return usePBCollectionRepository<IGAccount, CreateIGAccountInput, UpdateIGAccountInput>(
-    collectionName
-  );
+  return usePBCollectionRepository<IGAccount, CreateIGAccountInput, UpdateIGAccountInput>({
+    collectionName,
+  });
 };

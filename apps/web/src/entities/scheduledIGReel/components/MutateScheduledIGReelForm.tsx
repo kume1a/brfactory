@@ -19,6 +19,8 @@ type FormValues = {
   title: string;
   caption: string;
   igAccount: string;
+  thumbnail: File | null;
+  video: File | null;
 };
 
 export const MutateScheduledIGReelForm = (): JSX.Element => {
@@ -29,10 +31,8 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
   const { createScheduledIGReel, updateScheduledIGReel, isExecuting } = useMutateScheduledIGReel();
   const { getById } = useScheduledIGReelRepository();
 
-  const [file, setFile] = useState<File | null>(null);
-  const handleChange = (file: any) => {
-    setFile(file);
-  };
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+  const [videoFile, setVideoFile] = useState<File | null>(null);
 
   const [initialFormValues, setInitialFormValues] = useState<FormValues>({
     startAt: '',
@@ -40,6 +40,8 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
     title: '',
     caption: '',
     igAccount: '',
+    thumbnail: null,
+    video: null,
   });
 
   useEffect(() => {
@@ -60,18 +62,34 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
         title: entity.title,
         caption: entity.caption,
         igAccount: entity.igAccount,
+        video: null,
+        thumbnail: null,
       });
     });
   }, [query]);
 
   const onSubmit = async (values: FormValues): Promise<void> => {
+    console.log('onSubmit called, values:', values);
+    if (!thumbnailFile || !videoFile) {
+      console.warn('Thumbnail and video are required');
+      return;
+    }
+
     const scheduledIGReelId = query.get('scheduledIGReelId');
 
+    const input = {
+      ...values,
+      thumbnail: thumbnailFile,
+      video: videoFile,
+    };
+
+    console.log('calling create or update, input:', input);
     if (scheduledIGReelId) {
-      await updateScheduledIGReel(scheduledIGReelId, values);
+      await updateScheduledIGReel(scheduledIGReelId, input);
     } else {
-      await createScheduledIGReel(values);
+      await createScheduledIGReel(input);
     }
+    console.log('create or update called');
 
     router.replace(routes.igAccounts);
   };
@@ -119,16 +137,14 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
 
         <FileUploader
           label="Thumbnail"
-          multiple={false}
-          handleChange={handleChange}
+          handleChange={file => setThumbnailFile((Array.isArray(file) ? file[0] : file) ?? null)}
           name="thumbnail"
           types={['JPEG', 'JPG', 'PNG']}
         />
 
         <FileUploader
           label="Video"
-          multiple={false}
-          handleChange={handleChange}
+          handleChange={file => setVideoFile((Array.isArray(file) ? file[0] : file) ?? null)}
           name="video"
           types={['MP4']}
         />

@@ -12,5 +12,5 @@ export const useScheduledIGReelRepository = () => {
     ScheduledIGReel,
     CreateScheduledIGReelInput,
     UpdateScheduledIGReelInput
-  >(collectionName);
+  >({ collectionName, formData: true });
 };
