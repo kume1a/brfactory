@@ -26,7 +26,7 @@ type NavigationItem = {
 const navigation: NavigationItem[] = [
   { name: 'Dashboard', href: routes.dashboard, icon: IconDashboard },
   { name: 'IG accounts', href: routes.igAccounts, icon: IconInstagram },
-  { name: 'Scheduled', href: routes.scheduled, icon: IconCalendar },
+  { name: 'Scheduled IG reels', href: routes.scheduledIGReels, icon: IconCalendar },
 ];
 
 export const NavigationPanel = (): JSX.Element => {

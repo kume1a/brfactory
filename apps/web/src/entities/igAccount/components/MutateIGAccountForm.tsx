@@ -4,8 +4,7 @@ import { Field, Form, Formik } from 'formik';
 import { Input } from '../../../shared/components/Input';
 import { FieldErrorMessage } from '../../../shared/components/FieldErrorMessage';
 import { Button } from '../../../shared/components/Button';
-import { useMutateIgAccountFormSchema } from '../hooks/useMutateIgAccountFormSchema';
-import { useAuth } from '@repo/pocketbase-react';
+import { useMutateIGAccountFormSchema } from '../hooks/useMutateIGAccountFormSchema';
 import { CircularProgressIndicator } from '../../../shared/components/CircularProgressIndicator';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMutateIGAccount } from '../hooks/useMutateIGAccount';
@@ -19,12 +18,11 @@ type FormValues = {
   password: string;
 };
 
-export const MutateIgAccountForm = (): JSX.Element => {
+export const MutateIGAccountForm = (): JSX.Element => {
   const query = useSearchParams();
   const router = useRouter();
 
-  const formSchema = useMutateIgAccountFormSchema();
-  const { user } = useAuth();
+  const formSchema = useMutateIGAccountFormSchema();
   const { createIGAccount, updateIGAccount, isExecuting } = useMutateIGAccount();
   const { getById } = useIGAccountRepository();
 
@@ -65,10 +63,6 @@ export const MutateIgAccountForm = (): JSX.Element => {
 
     router.replace(routes.igAccounts);
   };
-
-  if (!user) {
-    return <>Not authenticated</>;
-  }
 
   return (
     <Formik

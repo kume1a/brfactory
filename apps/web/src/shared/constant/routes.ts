@@ -3,6 +3,7 @@ export const routes = {
   signIn: '/signIn',
   dashboard: '/dashboard',
   igAccounts: '/igAccounts',
-  scheduled: '/scheduled',
   igAccountsMutate: '/igAccounts/mutate',
+  scheduledIGReels: '/scheduledIGReels',
+  scheduledIGReelMutate: '/scheduledIGReels/mutate',
 };

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import * as Yup from 'yup';
 
-export const useMutateIgAccountFormSchema = (): Yup.AnyObjectSchema => {
+export const useMutateIGAccountFormSchema = (): Yup.AnyObjectSchema => {
   return useMemo(
     () =>
       Yup.object({
