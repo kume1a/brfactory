@@ -21,6 +21,7 @@ const config: Omit<Config, 'content'> = {
         textSecondary: '#8f8e93',
 
         secondary: '#99E515',
+        secondaryLight: '#F2FECD',
         secondaryHover: '#8BD013',
 
         link: '#38ab0e',
@@ -47,6 +48,7 @@ const config: Omit<Config, 'content'> = {
       },
       borderWidth: {
         1: '1px',
+        1.5: '1.5px',
       },
     },
   },

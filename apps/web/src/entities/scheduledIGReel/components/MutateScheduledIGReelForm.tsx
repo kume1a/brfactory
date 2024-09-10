@@ -11,6 +11,7 @@ import { routes } from '../../../shared/constant/routes';
 import { useMutateScheduledIGReel } from '../hooks/useMutateScheduledIGReel';
 import { useMutateScheduledIGReelFormSchema } from '../hooks/useMutateScheduledIGReelFormSchema';
 import { useScheduledIGReelRepository } from '../hooks/useScheduledIGReelRepository';
+import { FileUploader } from '../../../shared/components/file/FileUploader';
 
 type FormValues = {
   startAt: string;
@@ -27,6 +28,11 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
   const formSchema = useMutateScheduledIGReelFormSchema();
   const { createScheduledIGReel, updateScheduledIGReel, isExecuting } = useMutateScheduledIGReel();
   const { getById } = useScheduledIGReelRepository();
+
+  const [file, setFile] = useState<File | null>(null);
+  const handleChange = (file: any) => {
+    setFile(file);
+  };
 
   const [initialFormValues, setInitialFormValues] = useState<FormValues>({
     startAt: '',
@@ -110,6 +116,22 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
           renderInputElement={defaultProps => <Field {...defaultProps} />}
         />
         <FieldErrorMessage name="caption" />
+
+        <FileUploader
+          label="Thumbnail"
+          multiple={false}
+          handleChange={handleChange}
+          name="thumbnail"
+          types={['JPEG', 'JPG', 'PNG']}
+        />
+
+        <FileUploader
+          label="Video"
+          multiple={false}
+          handleChange={handleChange}
+          name="video"
+          types={['MP4']}
+        />
 
         <Button type="submit" className="w-full flex gap-2 mt-3">
           Submit
