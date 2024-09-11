@@ -171,7 +171,7 @@ export const FileUploader = (props: Props): JSX.Element => {
   }, [fileOrFiles]);
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className={classNames('flex flex-col gap-1', className)}>
       {label ? <span className="text-sm text-textSecondary pb-1">{label}</span> : null}
 
       <label
@@ -179,8 +179,7 @@ export const FileUploader = (props: Props): JSX.Element => {
           'relative flex items-center justify-center border-1.5 border-dashed px-5 py-10 rounded-md',
           disabled
             ? 'border-gray-600 cursor-no-drop bg-gray-300'
-            : 'border-secondary cursor-pointer bg-secondaryLight',
-          className
+            : 'border-secondary cursor-pointer bg-secondaryLight'
         )}
         ref={labelRef}
         htmlFor={name}
@@ -212,7 +211,7 @@ export const FileUploader = (props: Props): JSX.Element => {
 
         {children ? null : (
           <>
-            <DocumentTextIcon className="w-6 h-6 mr-2" />
+            <DocumentTextIcon className="size-6 mr-2" />
 
             <Description
               currFile={currFiles}
@@ -248,7 +247,7 @@ const UnderCaption = ({ types, minSize, maxSize }: UnderCaptionProps): null | JS
 
   return (
     <div className="flex gap-1.5 text-sm items-center">
-      <InformationCircleIcon className="w-6 h-6" />
+      <InformationCircleIcon className="size-6" />
       <span className="file-types">
         Only {types?.join('/')} files are allowed. {size}
       </span>

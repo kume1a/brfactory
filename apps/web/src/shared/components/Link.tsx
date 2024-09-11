@@ -59,9 +59,9 @@ const LinkChildren = ({
       {includeArrowIcon ? (
         <div
           className={classNames({
-            'w-4 h-4': size === 'xs',
-            'w-5 h-5': size === 'sm',
-            'w-6 h-6': size === 'base',
+            'size-4': size === 'xs',
+            'size-5': size === 'sm',
+            'size-6': size === 'base',
           })}
         >
           <IconUrlArrow />

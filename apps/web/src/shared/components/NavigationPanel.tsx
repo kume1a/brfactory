@@ -121,7 +121,7 @@ const NavigationItems = (): JSX.Element => {
             >
               <item.icon
                 className={classNames(
-                  'w-5 h-5 shrink-0',
+                  'size-5 shrink-0',
                   isCurrent ? 'text-textPrimary' : 'text-gray-400 group-hover:text-textPrimary'
                 )}
               />

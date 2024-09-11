@@ -100,11 +100,11 @@ const Actions = ({ record, onDeleteRow }: ActionsProps): JSX.Element => {
             query: { scheduledIGReelId: record.id },
           }}
         >
-          <PencilIcon className="w-4 h-4" />
+          <PencilIcon className="size-4" />
         </Button>
 
         <Button className="!rounded-full !p-2" onClick={showConfirmDelete}>
-          <TrashIcon className="w-4 h-4" />
+          <TrashIcon className="size-4" />
         </Button>
       </span>
     </>

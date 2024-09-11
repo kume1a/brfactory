@@ -1,17 +1,19 @@
 'use client';
 
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { Input } from '../../../shared/components/Input';
 import { FieldErrorMessage } from '../../../shared/components/FieldErrorMessage';
 import { Button } from '../../../shared/components/Button';
 import { CircularProgressIndicator } from '../../../shared/components/CircularProgressIndicator';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { routes } from '../../../shared/constant/routes';
 import { useMutateScheduledIGReel } from '../hooks/useMutateScheduledIGReel';
 import { useMutateScheduledIGReelFormSchema } from '../hooks/useMutateScheduledIGReelFormSchema';
 import { useScheduledIGReelRepository } from '../hooks/useScheduledIGReelRepository';
 import { FileUploader } from '../../../shared/components/file/FileUploader';
+import { useIGAccounts } from '../../igAccount/hooks/useIGAccounts';
+import { Select } from '../../../shared/components/Select';
 
 type FormValues = {
   startAt: string;
@@ -28,8 +30,10 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
   const router = useRouter();
 
   const formSchema = useMutateScheduledIGReelFormSchema();
-  const { createScheduledIGReel, updateScheduledIGReel, isExecuting } = useMutateScheduledIGReel();
+  const { createScheduledIGReel, updateScheduledIGReel } = useMutateScheduledIGReel();
   const { getById } = useScheduledIGReelRepository();
+
+  const { data: igAccounts } = useIGAccounts();
 
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -43,6 +47,15 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
     thumbnail: null,
     video: null,
   });
+
+  const igAccountSelectOptions = useMemo(
+    () =>
+      igAccounts.map(e => ({
+        label: e.username,
+        value: e.id,
+      })),
+    [igAccounts]
+  );
 
   useEffect(() => {
     const scheduledIGReelId = query.get('scheduledIGReelId');
@@ -68,7 +81,10 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
     });
   }, [query]);
 
-  const onSubmit = async (values: FormValues): Promise<void> => {
+  const onSubmit = async (
+    values: FormValues,
+    { setSubmitting }: FormikHelpers<FormValues>
+  ): Promise<void> => {
     console.log('onSubmit called, values:', values);
     if (!thumbnailFile || !videoFile) {
       console.warn('Thumbnail and video are required');
@@ -83,15 +99,17 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
       video: videoFile,
     };
 
-    console.log('calling create or update, input:', input);
+    setSubmitting(true);
+
     if (scheduledIGReelId) {
       await updateScheduledIGReel(scheduledIGReelId, input);
     } else {
       await createScheduledIGReel(input);
     }
-    console.log('create or update called');
 
-    router.replace(routes.igAccounts);
+    setSubmitting(false);
+
+    router.replace(routes.scheduledIGReels);
   };
 
   return (
@@ -99,61 +117,74 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
       initialValues={initialFormValues}
       enableReinitialize
       validationSchema={formSchema}
-      onSubmit={values => onSubmit(values)}
+      onSubmit={onSubmit}
     >
-      <Form noValidate className="max-w-lg flex flex-col gap-y-4 mt-12">
-        <Input
-          name="startAt"
-          inputWrapClassName="!bg-primaryContainer"
-          placeholder="Start at"
-          renderInputElement={defaultProps => <Field {...defaultProps} />}
-        />
-        <FieldErrorMessage name="startAt" />
+      {({ isSubmitting, setFieldValue, setFieldTouched }) => (
+        <Form noValidate className="max-w-lg flex flex-col mt-12">
+          <Input
+            name="startAt"
+            inputWrapClassName="!bg-primaryContainer"
+            placeholder="Start at"
+            renderInputElement={defaultProps => <Field {...defaultProps} />}
+          />
+          <FieldErrorMessage name="startAt" />
 
-        <Input
-          name="intervalInSeconds"
-          type="number"
-          inputWrapClassName="!bg-primaryContainer"
-          placeholder="Interval in seconds"
-          renderInputElement={defaultProps => <Field {...defaultProps} />}
-        />
-        <FieldErrorMessage name="intervalInSeconds" />
+          <Input
+            name="intervalInSeconds"
+            type="number"
+            inputWrapClassName="!bg-primaryContainer mt-4"
+            placeholder="Interval in seconds"
+            renderInputElement={defaultProps => <Field {...defaultProps} />}
+          />
+          <FieldErrorMessage name="intervalInSeconds" />
 
-        <Input
-          name="title"
-          placeholder="Title"
-          inputWrapClassName="!bg-primaryContainer"
-          renderInputElement={defaultProps => <Field {...defaultProps} />}
-        />
-        <FieldErrorMessage name="title" />
+          <Input
+            name="title"
+            placeholder="Title"
+            inputWrapClassName="!bg-primaryContainer mt-4"
+            renderInputElement={defaultProps => <Field {...defaultProps} />}
+          />
+          <FieldErrorMessage name="title" />
 
-        <Input
-          name="caption"
-          placeholder="Caption"
-          inputWrapClassName="!bg-primaryContainer"
-          renderInputElement={defaultProps => <Field {...defaultProps} />}
-        />
-        <FieldErrorMessage name="caption" />
+          <Input
+            name="caption"
+            placeholder="Caption"
+            inputWrapClassName="!bg-primaryContainer mt-4"
+            renderInputElement={defaultProps => <Field {...defaultProps} />}
+          />
+          <FieldErrorMessage name="caption" />
 
-        <FileUploader
-          label="Thumbnail"
-          handleChange={file => setThumbnailFile((Array.isArray(file) ? file[0] : file) ?? null)}
-          name="thumbnail"
-          types={['JPEG', 'JPG', 'PNG']}
-        />
+          <Select
+            className="mt-4"
+            options={igAccountSelectOptions}
+            placeholder="Select IG Account"
+            onChange={option => setFieldValue('igAccount', option)}
+            onBlur={() => setFieldTouched('igAccount')}
+          />
+          <FieldErrorMessage name="igAccount" />
 
-        <FileUploader
-          label="Video"
-          handleChange={file => setVideoFile((Array.isArray(file) ? file[0] : file) ?? null)}
-          name="video"
-          types={['MP4']}
-        />
+          <FileUploader
+            className="mt-4"
+            label="Thumbnail"
+            handleChange={file => setThumbnailFile((Array.isArray(file) ? file[0] : file) ?? null)}
+            name="thumbnail"
+            types={['JPEG', 'JPG', 'PNG']}
+          />
 
-        <Button type="submit" className="w-full flex gap-2 mt-3">
-          Submit
-          {isExecuting ? <CircularProgressIndicator /> : null}
-        </Button>
-      </Form>
+          <FileUploader
+            className="mt-4"
+            label="Video"
+            handleChange={file => setVideoFile((Array.isArray(file) ? file[0] : file) ?? null)}
+            name="video"
+            types={['MP4']}
+          />
+
+          <Button type="submit" className="w-full flex gap-2 mt-6">
+            Submit
+            {isSubmitting ? <CircularProgressIndicator /> : null}
+          </Button>
+        </Form>
+      )}
     </Formik>
   );
 };

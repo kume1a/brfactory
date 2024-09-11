@@ -39,7 +39,7 @@ export default function Example() {
                   href="#"
                   className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-textPrimary ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
                 >
-                  <SvgGoogle className="w-5 h-5" />
+                  <SvgGoogle className="size-5" />
                   <span className="text-sm font-semibold leading-6">Google</span>
                 </a>
 
@@ -47,7 +47,7 @@ export default function Example() {
                   href="#"
                   className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-textPrimary ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
                 >
-                  <SvgGithub className="w-5 h-5" />
+                  <SvgGithub className="size-5" />
                   <span className="text-sm font-semibold leading-6">GitHub</span>
                 </a>
               </div>

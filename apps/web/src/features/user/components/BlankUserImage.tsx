@@ -23,7 +23,7 @@ export const BlankProfileImage = ({
           iconContainerClassName
         )}
       >
-        <UserIcon className="w-5 h-5" />
+        <UserIcon className="size-5" />
       </div>
     </div>
   );

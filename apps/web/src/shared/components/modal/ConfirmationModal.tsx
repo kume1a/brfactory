@@ -38,7 +38,7 @@ export const ConfirmationModal = ({
             )}
             onClick={onClose}
           >
-            <XMarkIcon className="w-6 h-6" />
+            <XMarkIcon className="size-6" />
           </div>
         </DialogTitle>
       ) : null}

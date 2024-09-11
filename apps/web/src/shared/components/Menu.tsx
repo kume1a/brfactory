@@ -69,7 +69,7 @@ const MenuItemChildren = ({
   return (
     <>
       {option.icon ? (
-        <span className={classNames('w-4 h-4 text-elSecondary', focus && 'text-white')}>
+        <span className={classNames('size-4 text-elSecondary', focus && 'text-white')}>
           {option.icon}
         </span>
       ) : null}
