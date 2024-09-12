@@ -5,6 +5,7 @@ import { Pocketbase } from '@repo/pocketbase-react';
 import '@repo/ui/styles.css';
 import './globals.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-datetime/css/react-datetime.css';
 
 const inter = Inter({ subsets: ['latin'] });
 

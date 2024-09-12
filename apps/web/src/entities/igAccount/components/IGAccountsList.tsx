@@ -8,7 +8,6 @@ import { IGAccount } from '../igAccount.type';
 import { useState } from 'react';
 import { Button } from '../../../shared/components/Button';
 import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
-import { useRouter } from 'next/navigation';
 import { routes } from '../../../shared/constant/routes';
 import { ConfirmationModal } from '../../../shared/components/modal';
 import { useBoolean } from '../../../shared/hooks/useBoolean';
@@ -83,8 +82,6 @@ type IGAccountsActionsProps = {
 };
 
 const IGAccountsActions = ({ record, onDeleteIGAccount }: IGAccountsActionsProps): JSX.Element => {
-  const router = useRouter();
-
   const { deleteIGAccount } = useMutateIGAccount();
 
   const [confirmDeleteShowing, showConfirmDelete, hideConfirmDelete] = useBoolean(false);

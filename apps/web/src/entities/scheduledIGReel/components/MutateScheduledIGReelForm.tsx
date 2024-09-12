@@ -14,6 +14,8 @@ import { useScheduledIGReelRepository } from '../hooks/useScheduledIGReelReposit
 import { FileUploader } from '../../../shared/components/file/FileUploader';
 import { useIGAccounts } from '../../igAccount/hooks/useIGAccounts';
 import { Select } from '../../../shared/components/Select';
+import Datetime from 'react-datetime';
+import classNames from 'classnames';
 
 type FormValues = {
   startAt: string;
@@ -85,7 +87,6 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
     values: FormValues,
     { setSubmitting }: FormikHelpers<FormValues>
   ): Promise<void> => {
-    console.log('onSubmit called, values:', values);
     if (!thumbnailFile || !videoFile) {
       console.warn('Thumbnail and video are required');
       return;
@@ -95,21 +96,22 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
 
     const input = {
       ...values,
+      startAt: new Date(values.startAt).toUTCString(),
       thumbnail: thumbnailFile,
       video: videoFile,
     };
 
     setSubmitting(true);
 
-    if (scheduledIGReelId) {
-      await updateScheduledIGReel(scheduledIGReelId, input);
-    } else {
-      await createScheduledIGReel(input);
-    }
+    const success = scheduledIGReelId
+      ? await updateScheduledIGReel(scheduledIGReelId, input)
+      : await createScheduledIGReel(input);
 
     setSubmitting(false);
 
-    router.replace(routes.scheduledIGReels);
+    if (success) {
+      router.replace(routes.scheduledIGReels);
+    }
   };
 
   return (
@@ -121,11 +123,15 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
     >
       {({ isSubmitting, setFieldValue, setFieldTouched }) => (
         <Form noValidate className="max-w-lg flex flex-col mt-12">
-          <Input
-            name="startAt"
-            inputWrapClassName="!bg-primaryContainer"
-            placeholder="Start at"
-            renderInputElement={defaultProps => <Field {...defaultProps} />}
+          <Datetime
+            inputProps={{
+              placeholder: 'Start At',
+              className: classNames(
+                'w-full ring-1 ring-inset ring-gray-300 placeholder:text-textSecondary',
+                'border-0 text-sm py-1.5 px-2'
+              ),
+            }}
+            onChange={date => setFieldValue('startAt', date)}
           />
           <FieldErrorMessage name="startAt" />
 

@@ -57,11 +57,7 @@ export const usePBCollectionRepository = <T, CREATE_INPUT, UPDATE_INPUT>({
 
       if (formData) {
         Object.entries(input).forEach(([key, value]) => {
-          if (value instanceof File) {
-            data.append(key, value);
-          } else {
-            data.append(key, JSON.stringify(value));
-          }
+          data.append(key, value);
         });
       }
 
