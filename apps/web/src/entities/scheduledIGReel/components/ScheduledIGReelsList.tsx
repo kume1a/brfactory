@@ -12,6 +12,7 @@ import { ConfirmationModal } from '../../../shared/components/modal';
 import { useBoolean } from '../../../shared/hooks/useBoolean';
 import { useScheduledIGReels } from '../hooks/useScheduledIGReels';
 import { useMutateScheduledIGReel } from '../hooks/useMutateScheduledIGReel';
+import { formatLongString } from '../../../shared/util/string';
 
 export const ScheduledIGReelsTable = (): JSX.Element => {
   const { data: scheduledIGReels, refetch: refetchScheduledIGReels } = useScheduledIGReels();
@@ -54,7 +55,7 @@ export const ScheduledIGReelsTable = (): JSX.Element => {
         },
         {
           columnTitle: 'Caption',
-          cellContent: record => <>{record.caption}</>,
+          cellContent: record => <>{formatLongString(record.caption)}</>,
         },
         {
           columnTitle: '',
