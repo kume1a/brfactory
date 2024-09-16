@@ -13,8 +13,8 @@ export type CreateScheduledIGReelInput = Pick<
   ScheduledIGReel,
   'startAt' | 'intervalInSeconds' | 'title' | 'caption'
 > & {
-  thumbnail: File;
-  video: File;
+  thumbnailFileId: File;
+  videoFileId: File;
 };
 
 export type UpdateScheduledIGReelInput = Partial<CreateScheduledIGReelInput>;

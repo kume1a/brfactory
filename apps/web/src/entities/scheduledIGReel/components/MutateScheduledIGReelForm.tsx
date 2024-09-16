@@ -13,9 +13,10 @@ import { useMutateScheduledIGReelFormSchema } from '../hooks/useMutateScheduledI
 import { useScheduledIGReelRepository } from '../hooks/useScheduledIGReelRepository';
 import { FileUploader } from '../../../shared/components/file/FileUploader';
 import { useIGAccounts } from '../../igAccount/hooks/useIGAccounts';
-import { Select } from '../../../shared/components/Select';
+import { Select, SelectOption } from '../../../shared/components/Select';
 import Datetime from 'react-datetime';
 import classNames from 'classnames';
+import moment from 'moment';
 
 type FormValues = {
   startAt: string;
@@ -50,7 +51,7 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
     video: null,
   });
 
-  const igAccountSelectOptions = useMemo(
+  const igAccountSelectOptions: SelectOption<string>[] = useMemo(
     () =>
       igAccounts.map(e => ({
         label: e.username,
@@ -97,8 +98,8 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
     const input = {
       ...values,
       startAt: new Date(values.startAt).toUTCString(),
-      thumbnail: thumbnailFile,
-      video: videoFile,
+      thumbnailFileId: thumbnailFile,
+      videoFileId: videoFile,
     };
 
     setSubmitting(true);
@@ -124,6 +125,7 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
       {({ isSubmitting, setFieldValue, setFieldTouched }) => (
         <Form noValidate className="max-w-lg flex flex-col mt-12">
           <Datetime
+            isValidDate={current => current.isAfter(moment().subtract(1, 'day'))}
             inputProps={{
               placeholder: 'Start At',
               className: classNames(
