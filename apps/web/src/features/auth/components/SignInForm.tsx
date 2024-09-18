@@ -6,15 +6,19 @@ import { Input } from '../../../shared/components/Input';
 import { FieldErrorMessage } from '../../../shared/components/FieldErrorMessage';
 import { Button } from '../../../shared/components/Button';
 import { signInAction } from '../actions/signIn.action';
+import { useTransition } from 'react';
+import { CircularProgressIndicator } from '../../../shared/components/CircularProgressIndicator';
 
 export const SignInForm = (): JSX.Element => {
   const formSchema = useSignInFormSchema();
+
+  const [isExecuting, startTransition] = useTransition();
 
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={formSchema}
-      onSubmit={values => signInAction(values)}
+      onSubmit={values => startTransition(() => signInAction(values))}
     >
       <Form noValidate>
         <Input
@@ -50,7 +54,7 @@ export const SignInForm = (): JSX.Element => {
 
         <Button type="submit" className="w-full flex gap-2">
           Sign in
-          {/* {isExecuting ? <CircularProgressIndicator /> : null} */}
+          {isExecuting ? <CircularProgressIndicator /> : null}
         </Button>
       </Form>
     </Formik>
