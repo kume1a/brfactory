@@ -43,7 +43,7 @@ export const NavigationPanel = (): JSX.Element => {
         <div className="fixed inset-0 flex">
           <DialogPanel
             transition
-            className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-[closed]:-translate-x-full"
+            className="relative mr-16 flex w-full max-w-60 flex-1 transform transition duration-300 ease-in-out data-[closed]:-translate-x-full"
           >
             <TransitionChild>
               <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out data-[closed]:opacity-0">
@@ -62,41 +62,44 @@ export const NavigationPanel = (): JSX.Element => {
 
             <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
               <NavigationHeader />
-              <nav className="flex flex-1 flex-col">
-                <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                  <li>
-                    <NavigationItems />
-                  </li>
-                </ul>
-              </nav>
+              <NavigationContent />
             </div>
           </DialogPanel>
         </div>
       </Dialog>
 
       {/* Static sidebar for desktop */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-60 lg:flex-col">
         <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
           <NavigationHeader />
           <nav className="flex flex-1 flex-col">
-            <ul role="list" className="flex flex-1 flex-col gap-y-7">
-              <li>
-                <NavigationItems />
-              </li>
-              <li className="-mx-6 mt-auto">
-                <div className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-textPrimary hover:bg-gray-50">
-                  <BlankProfileImage containerClassName="w-8 h-8" />
-
-                  <span aria-hidden="true">Sign out</span>
-                </div>
-              </li>
-            </ul>
+            <NavigationContent />
           </nav>
         </div>
       </div>
 
       <OpenSidebarButton onClick={() => setSidebarOpen(true)} />
     </>
+  );
+};
+
+const NavigationContent = (): JSX.Element => {
+  return (
+    <ul role="list" className="flex flex-1 flex-col gap-y-7 select-none">
+      <NavigationItems />
+      <li className="mt-auto">
+        <div
+          className={classNames(
+            'flex items-center gap-x-4 p-2 mb-2 text-sm font-semibold leading-6',
+            'text-textPrimary hover:bg-gray-100 rounded-md cursor-pointer'
+          )}
+        >
+          <BlankProfileImage containerClassName="w-6 h-6" />
+
+          <span aria-hidden="true">Sign out</span>
+        </div>
+      </li>
+    </ul>
   );
 };
 
