@@ -12,10 +12,12 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import IconInstagram from '@public/svg/instagram.svg';
 import IconDashboard from '@public/svg/dasboard.svg';
+import IconServer from '@public/svg/server.svg';
 import { BlankProfileImage } from './BlankProfileImage';
 import { usePathname } from 'next/navigation';
 import { routes } from '../constant/routes';
 import Link from 'next/link';
+import { ServerUrlOriginMenu } from '../../features/dynamicServer/ui/ServerUrlOriginMenu';
 
 type NavigationItem = {
   name: string;
@@ -69,7 +71,7 @@ export const NavigationPanel = (): JSX.Element => {
       </Dialog>
 
       {/* Static sidebar for desktop */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-60 lg:flex-col">
+      <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-60 lg:flex-col">
         <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
           <NavigationHeader />
           <nav className="flex flex-1 flex-col">
@@ -87,17 +89,21 @@ const NavigationContent = (): JSX.Element => {
   return (
     <ul role="list" className="flex flex-1 flex-col gap-y-7 select-none">
       <NavigationItems />
-      <li className="mt-auto">
-        <div
-          className={classNames(
-            'flex items-center gap-x-4 p-2 mb-2 text-sm font-semibold leading-6',
-            'text-textPrimary hover:bg-gray-100 rounded-md cursor-pointer'
-          )}
-        >
-          <BlankProfileImage containerClassName="w-6 h-6" />
 
-          <span aria-hidden="true">Sign out</span>
-        </div>
+      <li className="mt-auto mb-2">
+        <ServerUrlOriginMenu>
+          <ClickableItem
+            icon={<IconServer className="size-5" />}
+            label="Server URL origin"
+            onClick={() => {}}
+          />
+        </ServerUrlOriginMenu>
+
+        <ClickableItem
+          icon={<BlankProfileImage containerClassName="w-5 h-5" />}
+          label="Sign out"
+          onClick={() => {}}
+        />
       </li>
     </ul>
   );
@@ -135,6 +141,28 @@ const NavigationItems = (): JSX.Element => {
         );
       })}
     </ul>
+  );
+};
+
+type ClickableItemProps = {
+  onClick?: VoidFunction;
+  label: string;
+  icon: any;
+};
+
+const ClickableItem = (item: ClickableItemProps): JSX.Element => {
+  return (
+    <div
+      onClick={item.onClick}
+      className={classNames(
+        'flex items-center gap-x-4 p-2 text-sm font-semibold leading-6',
+        'text-textPrimary rounded-md cursor-pointer hover:bg-gray-50'
+      )}
+    >
+      {item.icon}
+
+      <span aria-hidden="true">{item.label}</span>
+    </div>
   );
 };
 

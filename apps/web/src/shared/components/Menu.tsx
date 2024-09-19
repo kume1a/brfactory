@@ -31,6 +31,7 @@ type MenuProps = PropsWithChildren<{
   readonly options: readonly MenuOption[];
   readonly anchor?: Anchor;
   readonly useHover?: boolean;
+  readonly className?: string;
 }>;
 
 const MenuItem = ({ option }: { option: MenuOption }): JSX.Element => {
@@ -74,12 +75,18 @@ const MenuItemChildren = ({
         </span>
       ) : null}
 
-      <span className={classNames({ icon: 'pl-2' })}>{option.label}</span>
+      <span className={classNames(option.icon && 'pl-2')}>{option.label}</span>
     </>
   );
 };
 
-export const Menu = ({ children, options, anchor, useHover }: MenuProps): JSX.Element => {
+export const Menu = ({
+  children,
+  options,
+  anchor,
+  useHover,
+  className,
+}: MenuProps): JSX.Element => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -108,7 +115,7 @@ export const Menu = ({ children, options, anchor, useHover }: MenuProps): JSX.El
   };
 
   return (
-    <HMenu as="div" className="relative inline-block text-left">
+    <HMenu as="div" className={classNames('relative inline-block text-left', className)}>
       {({ open }) => (
         <div
           onClick={openMenu}
@@ -132,7 +139,7 @@ export const Menu = ({ children, options, anchor, useHover }: MenuProps): JSX.El
             <HMenuItems
               ref={dropdownRef}
               anchor={anchor}
-              className="absolute right-0 z-10 w-48 mt-2 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+              className="absolute right-0 z-10 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               onMouseEnter={useHover ? () => onMouseEnter(!open) : undefined}
               onMouseLeave={useHover ? () => onMouseLeave(open) : undefined}
             >
