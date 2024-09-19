@@ -15,14 +15,14 @@ export const AuthGuard = ({ children, ignoredRoutes }: Props): JSX.Element => {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (isSignedIn || ignoredRoutes?.includes(pathname)) {
+    if (isSignedIn !== false || ignoredRoutes?.includes(pathname)) {
       return;
     }
 
     router.replace(routes.signIn);
   }, [isSignedIn, pathname]);
 
-  if (isSignedIn || ignoredRoutes?.includes(pathname)) {
+  if (isSignedIn !== false || ignoredRoutes?.includes(pathname)) {
     return <>{children}</>;
   }
 
