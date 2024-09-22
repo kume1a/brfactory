@@ -12,7 +12,7 @@ RUN npm install -g turbo pnpm
 COPY . .
 RUN turbo prune web --docker
 RUN pnpm install
-RUN pnpm turbo build --filter=web...
+RUN pnpm turbo build --env-mode=loose --filter=web...
 
 FROM base AS runner
 WORKDIR /app
