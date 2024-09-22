@@ -91,7 +91,7 @@ const NavigationContent = (): JSX.Element => {
       <NavigationItems />
 
       <li className="mt-auto mb-2">
-        <ServerUrlOriginMenu>
+        <ServerUrlOriginMenu className="w-full">
           <ClickableItem
             icon={<IconServer className="size-5" />}
             label="Server URL origin"

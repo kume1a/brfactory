@@ -54,7 +54,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, LinkProp
       className: cn(
         {
           'bg-secondary shadow-buttonSecondaryBorder': variant === 'secondary',
-          'hover:bg-secondaryHover transition-colors text-white':
+          'hover:bg-secondaryHover transition-colors text-textPrimary':
             variant === 'secondary' && !props.disabled,
           'text-elSecondary': variant === 'secondary' && props.disabled,
           'bg-transparent hover:bg-transparent': variant === 'transparent',

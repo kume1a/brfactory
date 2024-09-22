@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Menu as HMenu,
   MenuItem as HMenuItem,

@@ -17,10 +17,10 @@ export const createServerUrlOriginStore = (): ServerUrlOriginStore => {
     read: () => {
       const value = localStorage?.getItem(SERVER_URL_ORIGIN_STORAGE_KEY) as ServerUrlOrigin | null;
 
-      return value ?? SERVER_URL_ORIGIN_DEFAULT;
+      return value ? JSON.parse(value) : SERVER_URL_ORIGIN_DEFAULT;
     },
     write: newValue => {
-      localStorage?.setItem(SERVER_URL_ORIGIN_STORAGE_KEY, newValue);
+      localStorage?.setItem(SERVER_URL_ORIGIN_STORAGE_KEY, JSON.stringify(newValue));
     },
   };
 };
