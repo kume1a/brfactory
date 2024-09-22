@@ -3,7 +3,7 @@ import { ScheduledIGReel } from '../scheduledIGReel.type';
 
 export const useScheduledIGReels = (): { data: ScheduledIGReel[]; refetch: VoidFunction } => {
   const { records, actions } = useAppContent(
-    process.env.NEXT_PUBLIC_PG_SCHEDULED_IG_REELS_COLLECTION ?? '',
+    process.env.NEXT_PUBLIC_PB_SCHEDULED_IG_REELS_COLLECTION ?? '',
     true
   );
 

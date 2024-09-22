@@ -5,7 +5,7 @@ import {
 } from '../scheduledIGReel.type';
 import { usePBCollectionRepository } from '../../../shared/hooks/usePBCollectionRepository';
 
-const collectionName = process.env.NEXT_PUBLIC_PG_SCHEDULED_IG_REELS_COLLECTION ?? '';
+const collectionName = process.env.NEXT_PUBLIC_PB_SCHEDULED_IG_REELS_COLLECTION ?? '';
 
 export const useScheduledIGReelRepository = () => {
   return usePBCollectionRepository<
