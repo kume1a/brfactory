@@ -1,25 +1,17 @@
 FROM node:18-alpine AS base
 
 FROM base AS builder
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk update
-RUN apk add --no-cache libc6-compat
+
 WORKDIR /app
-RUN npm install -g turbo
+
+RUN apk update
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
+
+RUN npm install -g turbo pnpm
 COPY . .
 RUN turbo prune web --docker
-
-FROM base AS installer
-RUN apk update
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-COPY --from=builder /app/out/json/ .
-RUN npm install -g pnpm
 RUN pnpm install
-
-COPY --from=builder /app/out/full/ .
-
 RUN pnpm turbo build --filter=web...
 
 FROM base AS runner
@@ -30,8 +22,8 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 USER nextjs
 
-COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
-COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
-COPY --from=installer --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
 
 CMD node apps/web/server.js
