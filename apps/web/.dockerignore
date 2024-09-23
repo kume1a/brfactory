@@ -2,3 +2,4 @@ node_modules
 .turbo
 .next
 npm-debug.log
+.env.local
