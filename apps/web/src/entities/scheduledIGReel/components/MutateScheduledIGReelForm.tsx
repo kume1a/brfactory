@@ -1,6 +1,6 @@
 'use client';
 
-import { Field, Form, Formik, FormikHelpers } from 'formik';
+import { Field, FieldAttributes, Form, Formik, FormikHelpers } from 'formik';
 import { Input } from '../../../shared/components/Input';
 import { FieldErrorMessage } from '../../../shared/components/FieldErrorMessage';
 import { Button } from '../../../shared/components/Button';
@@ -158,7 +158,17 @@ export const MutateScheduledIGReelForm = (): JSX.Element => {
             name="caption"
             placeholder="Caption"
             inputWrapClassName="!bg-primaryContainer mt-4"
-            renderInputElement={defaultProps => <Field {...defaultProps} />}
+            renderInputElement={defaultProps => (
+              <Field {...defaultProps}>
+                {({ field }: FieldAttributes<any>) => (
+                  <textarea
+                    {...field}
+                    placeholder="Caption"
+                    className="w-full h-32 border-none bg-transparent !ring-0 px-2 leading-5 text-sm py-1.5"
+                  />
+                )}
+              </Field>
+            )}
           />
           <FieldErrorMessage name="caption" />
 
