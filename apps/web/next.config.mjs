@@ -2,6 +2,14 @@
 
 const nextConfig = {
   output: 'standalone',
+  env: {
+    NEXT_PUBLIC_PB_URL_LOCAL: process.env.NEXT_PUBLIC_PB_URL_LOCAL,
+    NEXT_PUBLIC_PB_URL_REMOTE: process.env.NEXT_PUBLIC_PB_URL_REMOTE,
+    NEXT_PUBLIC_PB_USER_COLLECTION: process.env.NEXT_PUBLIC_PB_USER_COLLECTION,
+    NEXT_PUBLIC_PB_IG_ACCOUNTS_COLLECTION: process.env.NEXT_PUBLIC_PB_IG_ACCOUNTS_COLLECTION,
+    NEXT_PUBLIC_PB_SCHEDULED_IG_REELS_COLLECTION:
+      process.env.NEXT_PUBLIC_PB_SCHEDULED_IG_REELS_COLLECTION,
+  },
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find(rule => rule.test?.test?.('.svg'));
