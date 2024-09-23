@@ -20,7 +20,7 @@ export default function Page() {
             <div className="flex flex-col justify-center items-center">
               <Image
                 alt="Logo"
-                src="/logo/logo_transparentbg.png"
+                src="/brfactory/logo/logo_transparentbg.png"
                 className="rounded-full border-2 border-textSecondary"
                 width={56}
                 height={56}
@@ -40,7 +40,7 @@ export default function Page() {
       <div className="relative hidden w-0 flex-1 lg:block bg-gray-50">
         <Image
           alt=""
-          src="/images/nobrain.png"
+          src="/brfactory/images/nobrain.png"
           fill={true}
           className="absolute inset-0 h-full w-full object-scale-down"
         />

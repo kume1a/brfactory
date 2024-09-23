@@ -171,7 +171,7 @@ const NavigationHeader = (): JSX.Element => {
     <div className="flex h-16 shrink-0 items-center gap-3">
       <Image
         alt="Logo"
-        src="/logo/logo_transparentbg.png"
+        src="/brfactory/logo/logo_transparentbg.png"
         className="rounded-full border-2 border-textSecondary h-8 w-auto"
         width={56}
         height={56}

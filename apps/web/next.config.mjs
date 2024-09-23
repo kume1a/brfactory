@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  basePath: '/brfactory',
   output: 'standalone',
   env: {
     NEXT_PUBLIC_PB_URL_LOCAL: process.env.NEXT_PUBLIC_PB_URL_LOCAL,
