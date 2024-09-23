@@ -3,13 +3,6 @@
   "ui": "tui",
   "tasks": {
     "build": {
-      "env": [
-        "NEXT_PUBLIC_PB_URL_LOCAL",
-        "NEXT_PUBLIC_PB_URL_REMOTE",
-        "NEXT_PUBLIC_PB_USER_COLLECTION",
-        "NEXT_PUBLIC_PB_IG_ACCOUNTS_COLLECTION",
-        "NEXT_PUBLIC_PB_SCHEDULED_IG_REELS_COLLECTION"
-      ],
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"]
@@ -23,13 +16,6 @@
     }
   },
   "globalEnv": [
-    "NEXT_PUBLIC_PB_URL_LOCAL",
-    "NEXT_PUBLIC_PB_URL_REMOTE",
-    "NEXT_PUBLIC_PB_USER_COLLECTION",
-    "NEXT_PUBLIC_PB_IG_ACCOUNTS_COLLECTION",
-    "NEXT_PUBLIC_PB_SCHEDULED_IG_REELS_COLLECTION"
-  ],
-  "globalPassThroughEnv": [
     "NEXT_PUBLIC_PB_URL_LOCAL",
     "NEXT_PUBLIC_PB_URL_REMOTE",
     "NEXT_PUBLIC_PB_USER_COLLECTION",
