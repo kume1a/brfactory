@@ -6,4 +6,5 @@ export const routes = {
   igAccountsMutate: '/igAccounts/mutate',
   scheduledIGReels: '/scheduledIGReels',
   scheduledIGReelMutate: '/scheduledIGReels/mutate',
+  scheduledIGReelUploads: '/scheduledIGReelUploads',
 };

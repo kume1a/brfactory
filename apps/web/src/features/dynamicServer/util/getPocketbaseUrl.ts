@@ -4,9 +4,6 @@ import { createServerUrlOriginStore } from './serverUrlOrigin.store';
 export const getPocketbaseServerUrl = (): string => {
   const { read } = createServerUrlOriginStore();
 
-  console.log('process.env');
-  console.log(process.env);
-
   const serverUrlOrigin = read();
 
   switch (serverUrlOrigin) {

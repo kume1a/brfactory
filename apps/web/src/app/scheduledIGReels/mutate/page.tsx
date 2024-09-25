@@ -4,7 +4,7 @@ import { Breadcrumb } from '../../../shared/components/Breadcrumb';
 import { routes } from '../../../shared/constant/routes';
 import { MutateScheduledIGReelForm } from '../../../entities/scheduledIGReel/components/MutateScheduledIGReelForm';
 
-export default function Example() {
+export default function Page() {
   return (
     <MainLayout>
       <Breadcrumb

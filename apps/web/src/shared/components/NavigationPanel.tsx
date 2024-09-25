@@ -6,6 +6,7 @@ import {
   Bars3Icon as IconBars3,
   CalendarIcon as IconCalendar,
   XMarkIcon as IconXMark,
+  ArrowUpTrayIcon as IconArrowUpTray,
 } from '@heroicons/react/24/outline';
 
 import classNames from 'classnames';
@@ -29,6 +30,7 @@ const navigation: NavigationItem[] = [
   { name: 'Dashboard', href: routes.dashboard, icon: IconDashboard },
   { name: 'IG accounts', href: routes.igAccounts, icon: IconInstagram },
   { name: 'Scheduled IG reels', href: routes.scheduledIGReels, icon: IconCalendar },
+  { name: 'Scheduled IG reel uploads', href: routes.scheduledIGReelUploads, icon: IconArrowUpTray },
 ];
 
 export const NavigationPanel = (): JSX.Element => {
@@ -45,7 +47,7 @@ export const NavigationPanel = (): JSX.Element => {
         <div className="fixed inset-0 flex">
           <DialogPanel
             transition
-            className="relative mr-16 flex w-full max-w-60 flex-1 transform transition duration-300 ease-in-out data-[closed]:-translate-x-full"
+            className="relative mr-16 flex w-full max-w-72 flex-1 transform transition duration-300 ease-in-out data-[closed]:-translate-x-full"
           >
             <TransitionChild>
               <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out data-[closed]:opacity-0">
@@ -71,7 +73,7 @@ export const NavigationPanel = (): JSX.Element => {
       </Dialog>
 
       {/* Static sidebar for desktop */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-60 lg:flex-col">
+      <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-72 lg:flex-col">
         <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
           <NavigationHeader />
           <nav className="flex flex-1 flex-col">

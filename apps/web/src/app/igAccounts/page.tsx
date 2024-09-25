@@ -5,7 +5,7 @@ import { routes } from '../../shared/constant/routes';
 import { Button } from '../../shared/components/Button';
 import { IGAccountsTable } from '../../entities/igAccount/components/IGAccountsList';
 
-export default function Example() {
+export default function Page() {
   return (
     <MainLayout>
       <div className="flex justify-between pb-4">
