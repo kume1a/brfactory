@@ -12,7 +12,6 @@ export const DynamicServerUrlPBProvider = ({ children }: Props): JSX.Element => 
   return (
     <Pocketbase
       serverURL={pocketbaseServerUrl}
-      initialCollections={[]}
       webRedirectUrl={''}
       mobileRedirectUrl={''}
       // openURL={async () => {}}

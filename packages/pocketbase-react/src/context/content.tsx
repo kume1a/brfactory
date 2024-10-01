@@ -2,15 +2,23 @@
 
 import * as store from '../store/store';
 import * as React from 'react';
-import { createContext, useEffect } from 'react';
+import { createContext } from 'react';
 import { useClientContext } from '../hooks/useClientContext';
 import { Record } from '../interfaces/record';
 import { recordsAction } from '../store/actions';
 import { subscriptionsAction } from '../store/actions';
+import { RecordListOptions } from 'pocketbase';
 
 type SubscribeType = (collectionName: string) => Promise<void>;
 type UnsubscribeType = (collectionName?: string) => Promise<void>;
-type FetchType = (collectionName: string) => Promise<void>;
+type FetchType = (
+  collectionName: string,
+  params: {
+    page?: number;
+    perPage?: number;
+    options?: RecordListOptions;
+  }
+) => Promise<void>;
 type CreateType = (collectionName: string, record: {}) => Promise<void | Record | undefined>;
 type UpdateType = (
   collectionName: string,
@@ -32,7 +40,6 @@ export const ContentContext = createContext<ContentActions>({} as ContentActions
 
 export type ContentProviderProps = {
   children: React.ReactNode;
-  collections?: string[];
 };
 
 interface MessageData {
@@ -91,12 +98,20 @@ export const ContentProvider = (props: ContentProviderProps) => {
           .catch(tempErrorHandler);
       }
     },
-    fetch: async (collectionName: string) => {
+    fetch: async (collectionName, params) => {
       await client
         ?.collection(collectionName)
-        .getFullList(200)
+        .getList(params.page, params.perPage, params.options)
         .then((records) => {
-          dispatch(recordsAction.setRecords(collectionName, records as Record[]));
+          dispatch(recordsAction.setRecords(collectionName, records.items as Record[]));
+          dispatch(
+            recordsAction.setPagingMeta(collectionName, {
+              page: records.page,
+              perPage: records.perPage,
+              totalPages: records.totalPages,
+              totalItems: records.totalItems,
+            })
+          );
         })
         .catch(tempErrorHandler);
     },
@@ -110,20 +125,6 @@ export const ContentProvider = (props: ContentProviderProps) => {
       return client?.collection(collectionName).delete(recordId).catch(tempErrorHandler);
     },
   };
-
-  useEffect(() => {
-    if (props.collections) {
-      props.collections.forEach(async (collectionName) => {
-        await actions.fetch(collectionName);
-        await actions.subscribe(collectionName);
-      });
-    }
-    return () => {
-      (async () => {
-        await actions.unsubscribe();
-      })();
-    };
-  }, [props.collections]);
 
   return <ContentContext.Provider value={actions}>{props.children}</ContentContext.Provider>;
 };

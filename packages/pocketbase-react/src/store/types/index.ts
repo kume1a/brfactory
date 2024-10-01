@@ -1,4 +1,7 @@
+import { ListResult } from 'pocketbase';
+
 export const SET_RECORDS = 'SET_RECORDS';
+export const SET_PAGING_META = 'SET_PAGING_META';
 export const ADD_RECORD = 'ADD_RECORD';
 export const ADD_RECORDS = 'ADD_RECORDS';
 export const UPDATE_RECORD = 'UPDATE_RECORD';
@@ -7,6 +10,7 @@ export const DELETE_RECORDS = 'DELETE_RECORDS';
 
 export type RecordType =
   | typeof SET_RECORDS
+  | typeof SET_PAGING_META
   | typeof ADD_RECORD
   | typeof ADD_RECORDS
   | typeof UPDATE_RECORD
@@ -21,3 +25,5 @@ export type SubscriptionsType =
   | typeof SET_SUBSCRIPTIONS
   | typeof ADD_SUBSCRIPTION
   | typeof DELETE_SUBSCRIPTION;
+
+export type PagingMeta = Omit<ListResult<any>, 'items'>;

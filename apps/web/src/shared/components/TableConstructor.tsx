@@ -107,7 +107,7 @@ const TableConstructor = <T extends EntityWithId>({
               );
             });
 
-            const isLastRow = rowIndex === sortedTableData.length - 1;
+            const isLastRow = rowIndex === (sortedTableData?.length ?? 0) - 1;
 
             return (
               <tr

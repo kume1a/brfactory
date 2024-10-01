@@ -1,47 +1,61 @@
 import { Record } from '../../interfaces/record';
 import { RecordAction } from '../reducers/records';
-import * as ReduxType from '../types';
+import {
+  ADD_RECORD,
+  ADD_RECORDS,
+  DELETE_RECORD,
+  DELETE_RECORDS,
+  PagingMeta,
+  SET_PAGING_META,
+  SET_RECORDS,
+  UPDATE_RECORD,
+} from '../types';
 
-const setRecords = (key: string, payload: Record[]) =>
+export const setRecords = (key: string, payload: Record[]) =>
   ({
-    type: ReduxType.SET_RECORDS,
+    type: SET_RECORDS,
     key,
     payload,
   }) as RecordAction;
 
-const addRecord = (key: string, payload: Record) =>
+export const setPagingMeta = (key: string, payload: PagingMeta) =>
   ({
-    type: ReduxType.ADD_RECORD,
+    type: SET_PAGING_META,
     key,
     payload,
   }) as RecordAction;
 
-const addRecords = (key: string, payload: Record[]) =>
+export const addRecord = (key: string, payload: Record) =>
   ({
-    type: ReduxType.ADD_RECORDS,
+    type: ADD_RECORD,
     key,
     payload,
   }) as RecordAction;
 
-const deleteRecord = (key: string, payload: Record) =>
+export const addRecords = (key: string, payload: Record[]) =>
   ({
-    type: ReduxType.DELETE_RECORD,
+    type: ADD_RECORDS,
     key,
     payload,
   }) as RecordAction;
 
-const deleteRecords = (key: string, payload: Record[]) =>
+export const deleteRecord = (key: string, payload: Record) =>
   ({
-    type: ReduxType.DELETE_RECORDS,
+    type: DELETE_RECORD,
     key,
     payload,
   }) as RecordAction;
 
-const updateRecord = (key: string, payload: Record) =>
+export const deleteRecords = (key: string, payload: Record[]) =>
   ({
-    type: ReduxType.UPDATE_RECORD,
+    type: DELETE_RECORDS,
     key,
     payload,
   }) as RecordAction;
 
-export { setRecords, addRecord, addRecords, deleteRecord, deleteRecords, updateRecord };
+export const updateRecord = (key: string, payload: Record) =>
+  ({
+    type: UPDATE_RECORD,
+    key,
+    payload,
+  }) as RecordAction;

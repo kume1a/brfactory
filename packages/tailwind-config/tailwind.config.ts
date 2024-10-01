@@ -16,7 +16,6 @@ const config: Omit<Config, 'content'> = {
         ...colors,
 
         body: '#ffffff',
-        error: '#f8719d',
         textPrimary: '#121312',
         textSecondary: '#8f8e93',
 
@@ -26,6 +25,9 @@ const config: Omit<Config, 'content'> = {
 
         link: '#38ab0e',
         linkHover: '#2c9147',
+
+        success: '#33FFB6',
+        error: '#E23D5A',
 
         bgPrimaryContainer: '#F4F5FA',
         bgSecondaryContainer: '#353547',

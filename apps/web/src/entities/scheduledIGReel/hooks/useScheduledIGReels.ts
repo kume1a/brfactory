@@ -1,13 +1,30 @@
-import { useAppContent } from '@repo/pocketbase-react';
+import { PagingMeta, useAppContent } from '@repo/pocketbase-react';
+import { useEffect, useState } from 'react';
 import { ScheduledIGReel } from '../scheduledIGReel.type';
 
-export const useScheduledIGReels = (): { data: ScheduledIGReel[]; refetch: VoidFunction } => {
-  const { records, actions } = useAppContent(
-    process.env.NEXT_PUBLIC_PB_SCHEDULED_IG_REELS_COLLECTION ?? '',
-    true
+export const useScheduledIGReels = (): {
+  data: ScheduledIGReel[];
+  refetch: VoidFunction;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  pagingMeta: PagingMeta;
+} => {
+  const [page, setPage] = useState(1);
+
+  const { records, actions, pagingMeta } = useAppContent(
+    process.env.NEXT_PUBLIC_PB_SCHEDULED_IG_REELS_COLLECTION ?? ''
   );
 
-  const refetch = () => actions.fetch();
+  const refetch = () => {
+    if (page !== 1) {
+      setPage(1);
+    } else {
+      actions.fetch({ page: 1, perPage: 1 });
+    }
+  };
 
-  return { data: records as ScheduledIGReel[], refetch };
+  useEffect(() => {
+    actions.fetch({ page, perPage: 10 });
+  }, [page]);
+
+  return { data: records as ScheduledIGReel[], refetch, setPage, pagingMeta };
 };

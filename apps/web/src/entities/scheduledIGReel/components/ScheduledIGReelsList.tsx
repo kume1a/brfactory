@@ -13,56 +13,72 @@ import { useBoolean } from '../../../shared/hooks/useBoolean';
 import { useScheduledIGReels } from '../hooks/useScheduledIGReels';
 import { useMutateScheduledIGReel } from '../hooks/useMutateScheduledIGReel';
 import { formatLongString } from '../../../shared/util/string';
+import { Pagination } from '../../../shared/components/pagination';
 
 export const ScheduledIGReelsTable = (): JSX.Element => {
-  const { data: scheduledIGReels, refetch: refetchScheduledIGReels } = useScheduledIGReels();
+  const {
+    data: scheduledIGReels,
+    refetch: refetchScheduledIGReels,
+    pagingMeta,
+    setPage,
+  } = useScheduledIGReels();
 
   return (
-    <TableConstructor<ScheduledIGReel>
-      tableData={scheduledIGReels}
-      cellClassName="p-3"
-      rowClassName="p-3 h-22"
-      headerCellClassName="!p-3 text-xs font-medium tracking-wider"
-      useBottomBorderOnLastRow={false}
-      columnSchema={[
-        {
-          columnTitle: 'ID',
-          cellContent: record => <>{record.id}</>,
-        },
-        {
-          columnTitle: 'Created at',
-          cellContent: record => (
-            <>
-              {getLocaleDateTime(record.created).toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)}
-            </>
-          ),
-        },
-        {
-          columnTitle: 'Start at',
-          cellContent: record => (
-            <>
-              {getLocaleDateTime(record.startAt).toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)}
-            </>
-          ),
-        },
-        {
-          columnTitle: 'Interval in seconds',
-          cellContent: record => <>{record.intervalInSeconds}</>,
-        },
-        {
-          columnTitle: 'Title',
-          cellContent: record => <>{record.title}</>,
-        },
-        {
-          columnTitle: 'Caption',
-          cellContent: record => <>{formatLongString(record.caption)}</>,
-        },
-        {
-          columnTitle: '',
-          cellContent: record => <Actions record={record} onDeleteRow={refetchScheduledIGReels} />,
-        },
-      ]}
-    />
+    <>
+      <TableConstructor<ScheduledIGReel>
+        tableData={scheduledIGReels}
+        cellClassName="p-3"
+        rowClassName="p-3 h-22"
+        headerCellClassName="!p-3 text-xs font-medium tracking-wider"
+        useBottomBorderOnLastRow={false}
+        columnSchema={[
+          {
+            columnTitle: 'ID',
+            cellContent: record => <>{record.id}</>,
+          },
+          {
+            columnTitle: 'Created at',
+            cellContent: record => (
+              <>
+                {getLocaleDateTime(record.created).toLocaleString(
+                  DateTime.DATETIME_MED_WITH_SECONDS
+                )}
+              </>
+            ),
+          },
+          {
+            columnTitle: 'Start at',
+            cellContent: record => (
+              <>
+                {getLocaleDateTime(record.startAt).toLocaleString(
+                  DateTime.DATETIME_MED_WITH_SECONDS
+                )}
+              </>
+            ),
+          },
+          {
+            columnTitle: 'Interval in seconds',
+            cellContent: record => <>{record.intervalInSeconds}</>,
+          },
+          {
+            columnTitle: 'Title',
+            cellContent: record => <>{record.title}</>,
+          },
+          {
+            columnTitle: 'Caption',
+            cellContent: record => <>{formatLongString(record.caption)}</>,
+          },
+          {
+            columnTitle: '',
+            cellContent: record => (
+              <Actions record={record} onDeleteRow={refetchScheduledIGReels} />
+            ),
+          },
+        ]}
+      />
+
+      <Pagination pageCount={pagingMeta.totalPages} onPageChange={page => setPage(page)} />
+    </>
   );
 };
 

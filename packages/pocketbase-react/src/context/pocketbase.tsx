@@ -19,25 +19,19 @@ export type PocketbaseProviderProps = React.PropsWithChildren<{
   webRedirectUrl: string;
   mobileRedirectUrl: string;
   // openURL: (url: string) => Promise<void>;
-  initialCollections?: string[];
 }>;
 
 export const Pocketbase = (props: PocketbaseProviderProps) => {
   const [client, setClient] = React.useState<PocketBase | null>(null);
-  const [initialCollections, setInitialCollections] = React.useState<string[]>();
   useEffect(() => {
     const client = new PocketBase(props.serverURL);
     client.autoCancellation(false);
     client.authStore.onChange(async () => {
       await StorageService.set(StorageService.Constants.COOKIE, client.authStore.exportToCookie());
-      setInitialCollections([]);
-      setInitialCollections(props.initialCollections);
     });
     StorageService.get(StorageService.Constants.COOKIE).then((cookie) => {
       if (cookie) {
         client.authStore.loadFromCookie(cookie);
-        setInitialCollections([]);
-        setInitialCollections(props.initialCollections);
       }
       setClient(client);
     });
@@ -52,7 +46,7 @@ export const Pocketbase = (props: PocketbaseProviderProps) => {
             mobileRedirectUrl={props.mobileRedirectUrl}
             // openURL={props.openURL}
           >
-            <ContentProvider collections={initialCollections}>{props.children}</ContentProvider>
+            <ContentProvider>{props.children}</ContentProvider>
           </AuthProvider>
         </PersistGate>
       </Provider>
