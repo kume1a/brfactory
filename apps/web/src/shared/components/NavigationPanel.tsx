@@ -19,6 +19,7 @@ import { usePathname } from 'next/navigation';
 import { routes } from '../constant/routes';
 import Link from 'next/link';
 import { ServerUrlOriginMenu } from '../../features/dynamicServer/ui/ServerUrlOriginMenu';
+import { useSignOut } from '../../features/auth/hooks/useSignOut';
 
 type NavigationItem = {
   name: string;
@@ -88,23 +89,21 @@ export const NavigationPanel = (): JSX.Element => {
 };
 
 const NavigationContent = (): JSX.Element => {
+  const { signOut } = useSignOut();
+
   return (
     <ul role="list" className="flex flex-1 flex-col gap-y-7 select-none">
       <NavigationItems />
 
       <li className="mt-auto mb-2">
         <ServerUrlOriginMenu className="w-full">
-          <ClickableItem
-            icon={<IconServer className="size-5" />}
-            label="Server URL origin"
-            onClick={() => {}}
-          />
+          <ClickableItem icon={<IconServer className="size-5" />} label="Server URL origin" />
         </ServerUrlOriginMenu>
 
         <ClickableItem
           icon={<BlankProfileImage containerClassName="w-5 h-5" />}
           label="Sign out"
-          onClick={() => {}}
+          onClick={signOut}
         />
       </li>
     </ul>
