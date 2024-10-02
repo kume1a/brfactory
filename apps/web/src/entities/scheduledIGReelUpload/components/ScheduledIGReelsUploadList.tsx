@@ -24,10 +24,12 @@ export const ScheduledIGReelUploadsTable = (): JSX.Element => {
         columnSchema={[
           {
             columnTitle: 'ID',
+            columnTitleStyle: 'min-w-32',
             cellContent: record => <>{record.id}</>,
           },
           {
             columnTitle: 'Created at',
+            columnTitleStyle: 'min-w-48',
             cellContent: record => (
               <>
                 {getLocaleDateTime(record.created).toLocaleString(

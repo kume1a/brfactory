@@ -38,10 +38,12 @@ export const IGAccountsTable = (): JSX.Element => {
         columnSchema={[
           {
             columnTitle: 'ID',
+            columnTitleStyle: 'min-w-32',
             cellContent: record => <>{record.id}</>,
           },
           {
             columnTitle: 'Created at',
+            columnTitleStyle: 'min-w-48',
             cellContent: record => (
               <>
                 {getLocaleDateTime(record.created).toLocaleString(
@@ -52,6 +54,7 @@ export const IGAccountsTable = (): JSX.Element => {
           },
           {
             columnTitle: 'Username',
+            columnTitleStyle: 'min-w-28',
             cellContent: record => <>{record.username}</>,
           },
           {

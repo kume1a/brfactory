@@ -9,10 +9,10 @@ export const Pagination = ({ pageCount, onPageChange }: Props) => {
   return (
     <ReactPaginate
       pageCount={pageCount}
-      onPageChange={({ selected }) => onPageChange(selected)}
+      onPageChange={({ selected }) => onPageChange(selected + 1)}
       breakLabel="..."
-      nextLabel="next"
-      previousLabel="previous"
+      nextLabel=">"
+      previousLabel="<"
       pageRangeDisplayed={2}
       renderOnZeroPageCount={null}
       containerClassName="flex flex-wrap justify-start mt-4 select-none"
